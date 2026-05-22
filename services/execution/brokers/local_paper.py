@@ -112,6 +112,12 @@ class LocalPaperBroker(Broker):
             if "client_order_id" in o
         }
 
+        # Persist immediately so the file exists even before any orders fill.
+        # Downstream tooling (show_portfolio, dashboard, audit commit step) can
+        # then always assume the state file is present.
+        if not self.state_path.exists():
+            self._save()
+
     def _save(self) -> None:
         payload = {
             "schema_version": SCHEMA_VERSION,

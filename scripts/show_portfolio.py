@@ -36,7 +36,9 @@ def main(argv: list[str] | None = None) -> int:
     if not path.exists():
         print(f"no state file at {path}")
         print("nothing has been traded yet. run `python scripts/run_daemon.py --run-once` first.")
-        return 1
+        # Not an error — pre-trade state is a valid state. Return 0 so CI does
+        # not mark a fresh paper account as a failure.
+        return 0
 
     data = json.loads(path.read_text())
     cash = Decimal(data["cash"])

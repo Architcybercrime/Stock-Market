@@ -232,6 +232,21 @@ class TradingDaemon:
             )
 
         histories = self._pull_history(run_ts)
+        log.info(
+            "daemon.history_pulled",
+            universe_size=len(self.universe),
+            symbols_with_data=len(histories),
+            symbols_without_data=len(self.universe) - len(histories),
+        )
+        if not histories:
+            log.warning(
+                "daemon.no_data",
+                hint=(
+                    "All symbols returned empty. yfinance rate-limit from CI runner is "
+                    "common — try fewer symbols or run from a different IP."
+                ),
+            )
+
         signals_by_symbol = self._evaluate_signals(histories)
         last_prices = {sym: float(df["close"].iloc[-1]) for sym, df in histories.items()}
 
