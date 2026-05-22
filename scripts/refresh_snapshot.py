@@ -56,9 +56,35 @@ def _latest_close(symbol: str) -> float | None:
         return None
 
 
+def _initial_state(currency: str = "INR", initial_cash: float = 1_000_000.0) -> dict:
+    """Bootstrap a fresh state file. Used on the very first run before any
+    daemon has executed, so the dashboard has something to render."""
+    now_iso = datetime.now(UTC).isoformat()
+    return {
+        "schema_version": 1,
+        "cash": f"{initial_cash:.2f}",
+        "initial_capital": f"{initial_cash:.2f}",
+        "realized_pnl": "0",
+        "positions": {},
+        "avg_costs": {},
+        "orders": [],
+        "fills": [],
+        "equity_history": [[now_iso, f"{initial_cash:.2f}"]],
+        "last_prices": {},
+        "mark_to_market_equity": float(initial_cash),
+        "currency": currency,
+        "updated_at": now_iso,
+        "snapshot_at": now_iso,
+    }
+
+
 def refresh(state_path: Path) -> int:
+    state_path.parent.mkdir(parents=True, exist_ok=True)
+
     if not state_path.exists():
-        print(f"no state file at {state_path}; nothing to refresh")
+        print(f"no state file at {state_path}; bootstrapping initial state")
+        state_path.write_text(json.dumps(_initial_state(), indent=2))
+        print(f"created {state_path} with initial 10 lakh INR cash")
         return 0
 
     data = json.loads(state_path.read_text())
