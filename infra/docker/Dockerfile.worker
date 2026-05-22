@@ -1,0 +1,33 @@
+# Dockerfile for worker processes: ingestion, training, paper-trading loop.
+# Same deps as the API; entrypoint chosen at runtime via WORKER_KIND env.
+
+FROM python:3.11-slim AS builder
+ENV PYTHONDONTWRITEBYTECODE=1 PYTHONUNBUFFERED=1 PIP_NO_CACHE_DIR=1
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+COPY pyproject.toml ./
+RUN python -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip && \
+    /opt/venv/bin/pip install .
+COPY libs ./libs
+COPY services ./services
+COPY scripts ./scripts
+RUN /opt/venv/bin/pip install -e .
+
+FROM python:3.11-slim
+ENV PATH="/opt/venv/bin:$PATH" PYTHONUNBUFFERED=1 WORKER_KIND=ingest
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends libpq5 \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 10001 trader
+COPY --from=builder /opt/venv /opt/venv
+COPY --chown=trader:trader libs ./libs
+COPY --chown=trader:trader services ./services
+COPY --chown=trader:trader scripts ./scripts
+COPY --chown=trader:trader pyproject.toml ./
+USER trader
+
+# Entrypoint dispatches by WORKER_KIND so one image runs any worker role.
+CMD ["sh", "-c", "python scripts/${WORKER_KIND}.py ${WORKER_ARGS:-}"]

@@ -1,0 +1,44 @@
+# Dockerfile for the FastAPI service.
+# Multi-stage: builder installs deps to a venv, final image is slim.
+
+FROM python:3.11-slim AS builder
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
+WORKDIR /app
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        build-essential libpq-dev curl \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY pyproject.toml ./
+RUN python -m venv /opt/venv && \
+    /opt/venv/bin/pip install --upgrade pip && \
+    /opt/venv/bin/pip install .
+
+COPY libs ./libs
+COPY services ./services
+RUN /opt/venv/bin/pip install -e .
+
+# ----- Runtime stage -----
+FROM python:3.11-slim
+ENV PATH="/opt/venv/bin:$PATH" \
+    PYTHONUNBUFFERED=1
+WORKDIR /app
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+        libpq5 curl \
+    && rm -rf /var/lib/apt/lists/* \
+    && useradd --create-home --uid 10001 trader
+
+COPY --from=builder /opt/venv /opt/venv
+COPY --chown=trader:trader libs ./libs
+COPY --chown=trader:trader services ./services
+COPY --chown=trader:trader pyproject.toml ./
+
+USER trader
+EXPOSE 8000
+HEALTHCHECK --interval=15s --timeout=5s --retries=3 \
+    CMD curl -fsS http://localhost:8000/healthz || exit 1
+
+CMD ["uvicorn", "services.api.main:app", "--host", "0.0.0.0", "--port", "8000"]

@@ -1,0 +1,47 @@
+# Default-deny network policy with explicit allow rules.
+# API: receive from ingress, send to postgres + redis.
+# Postgres/Redis: only API and worker pods may talk to them.
+
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: default-deny-all
+  namespace: stockmarket
+spec:
+  podSelector: {}
+  policyTypes: [Ingress, Egress]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-ingress
+  namespace: stockmarket
+spec:
+  podSelector: {matchLabels: {app: api}}
+  policyTypes: [Ingress]
+  ingress:
+    - from:
+        - namespaceSelector: {matchLabels: {name: ingress-nginx}}
+      ports: [{port: 8000, protocol: TCP}]
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-api-egress
+  namespace: stockmarket
+spec:
+  podSelector: {matchLabels: {app: api}}
+  policyTypes: [Egress]
+  egress:
+    - to:
+        - podSelector: {matchLabels: {app: postgres}}
+      ports: [{port: 5432, protocol: TCP}]
+    - to:
+        - podSelector: {matchLabels: {app: redis}}
+      ports: [{port: 6379, protocol: TCP}]
+    # DNS
+    - to:
+        - namespaceSelector: {}
+      ports:
+        - {port: 53, protocol: UDP}
+        - {port: 53, protocol: TCP}
