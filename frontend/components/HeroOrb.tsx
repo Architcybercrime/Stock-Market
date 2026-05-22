@@ -20,7 +20,6 @@ function Orb({ accent }: { accent: string }) {
   return (
     <Float speed={0.9} rotationIntensity={0.2} floatIntensity={0.6}>
       <Sphere ref={ref} args={[1.2, 96, 96]}>
-        {/* @ts-expect-error r3f auto-attaches material */}
         <MeshDistortMaterial
           color={accent}
           distort={0.38}
