@@ -47,6 +47,10 @@ dependencies = [
     "scipy>=1.12",
     "statsmodels>=0.14",
 
+    # Broker + market data
+    "alpaca-py>=0.30",
+    "pandas-market-calendars>=4.4",
+
     # API
     "fastapi>=0.110",
     "uvicorn[standard]>=0.29",
