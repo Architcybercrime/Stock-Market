@@ -99,3 +99,13 @@ class YFinanceSource(DataSource):
         return pd.DataFrame(
             columns=["ts", "symbol", "open", "high", "low", "close", "volume", "interval", "adjusted"]
         )
+
+    def latest_close(self, symbol: str) -> float | None:
+        """Most recent daily close. Used by LocalPaperBroker for fill prices."""
+        from datetime import UTC, datetime, timedelta
+
+        now = datetime.now(UTC)
+        df = self.fetch_bars(symbol, now - timedelta(days=10), now, "1d")
+        if df is None or df.empty:
+            return None
+        return float(df["close"].iloc[-1])

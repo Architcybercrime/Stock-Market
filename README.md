@@ -1,13 +1,20 @@
 # Stock_Market — Institutional AI Trading Platform
 
-A production-oriented, modular AI trading and decision-support platform. Built with
-capital preservation first, risk-adjusted returns second, automation third.
+A production-oriented, modular AI trading platform. Defaults to **Indian
+equity markets (NSE)** with Zerodha-style cost modelling. Built with capital
+preservation first, risk-adjusted returns second, automation third.
 
-> **Status: scaffold.** This repository is the initial architecture and working
-> foundation. Several subsystems contain real, runnable implementations
-> (ingestion, indicators, backtester, risk checks, FastAPI service); others are
-> extension points with clearly marked TODOs. No component is "magic." Read the
-> code before trusting it with capital.
+> **Status: scaffold.** Working foundation for *paper trading on real market
+> data*. No real-money broker is wired up yet — that's deliberate. Read
+> [docs/INDIA_GUIDE.md](docs/INDIA_GUIDE.md) for the Indian-market specifics
+> and [docs/REALISTIC_EXPECTATIONS.md](docs/REALISTIC_EXPECTATIONS.md) for
+> what success actually looks like.
+>
+> **Zero accounts needed to start.** The default deploy uses `yfinance` for
+> NSE price data and a local paper broker that persists state to a JSON
+> file. Once you have 60+ days of paper-trading evidence and you're ready
+> for real money, you can wire up Zerodha Kite Connect or Upstox (the two
+> popular Indian retail broker APIs) into the same `Broker` interface.
 
 ## Guiding principles
 
@@ -79,9 +86,9 @@ tests/               Pytest suite
 docs/                Architecture, roadmap, risk policy, compliance
 ```
 
-## Quickstart (local)
+## Quickstart (local, no accounts needed)
 
-Requires Python 3.11+, Node 20+. Alpaca paper account (free, 5 min signup).
+Requires Python 3.11+.
 
 ```bash
 # 1. Python env
@@ -89,19 +96,18 @@ python -m venv .venv
 . .venv/bin/activate                  # or .venv\Scripts\activate on Windows
 pip install -e ".[dev]"
 
-# 2. Configure Alpaca paper credentials in .env (see docs/HOW_TO_RUN.md)
-cp .env.example .env
-
-# 3. Smoke test: one cycle of the autonomous daemon
+# 2. Smoke test: one daemon cycle on Indian NSE stocks
 python scripts/run_daemon.py --run-once --profile conservative
 
-# 4. Run forever on the market-close schedule
-python scripts/run_daemon.py     # interactive — pick profile when prompted
+# 3. See what the simulated portfolio looks like
+python scripts/show_portfolio.py --currency INR
 
-# 5. Watch via dashboard (in two more terminals)
-make api                          # FastAPI on :8000
-make frontend                     # Next.js dashboard on :3000
+# 4. Run continuously on the NSE close schedule
+python scripts/run_daemon.py        # interactive — pick profile when prompted
 ```
+
+To trade US markets instead: `python scripts/run_daemon.py --market NYSE` (needs
+Alpaca paper keys if you want a real broker, otherwise also uses LocalPaperBroker).
 
 **Read [docs/HOW_TO_RUN.md](docs/HOW_TO_RUN.md) before running** — it's a
 short, ordered walkthrough that explains what each piece does and how to

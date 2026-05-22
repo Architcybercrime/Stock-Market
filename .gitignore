@@ -28,14 +28,11 @@ out/
 *.log
 .eslintcache
 
-# Data — never commit market data, models, or secrets
-data/
+# Data — never commit raw market data, models, or secrets...
+data/*
 /models/
 artifacts/
 mlruns/
-# But DO commit the source code under services/ml/models/
-!services/ml/models/
-!services/ml/models/**
 *.parquet
 *.feather
 *.pkl
@@ -43,6 +40,16 @@ mlruns/
 *.onnx
 *.h5
 *.ckpt
+# ...EXCEPT the paper-trading state file and last-run log. These are how the
+# GitHub Actions cron daemon persists state across ephemeral runners.
+!data/.gitkeep
+!data/paper_state.json
+!data/last_run.log
+
+# DO commit the source code under services/ml/models/ (these are .py files,
+# not trained artifacts).
+!services/ml/models/
+!services/ml/models/**
 
 # Secrets
 .env

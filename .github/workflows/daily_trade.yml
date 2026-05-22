@@ -1,28 +1,31 @@
 name: Daily paper-trade cycle
 
-# Runs ONE cycle of the autonomous daemon, once per US trading day after
-# market close. No persistent server required — positions and orders live
-# at Alpaca, which is the source of truth.
+# Runs ONE cycle of the autonomous daemon, once per Indian trading day after
+# NSE market close. Persists portfolio state in data/paper_state.json which
+# is committed back to the repo so positions survive across runs.
 #
-# Schedule notes:
-# - NYSE closes at 16:00 ET = 20:00 UTC (EDT, summer) or 21:00 UTC (EST, winter)
-# - We fire at 21:30 UTC year-round. That's 30 min after close in winter and
-#   90 min after close in summer. Either is safely after the print settles.
-# - GitHub Actions cron is "best effort" and can drift up to ~15 min. Daily
-#   close trading is robust to that drift.
-# - Sat/Sun are skipped by the cron expression. US trading holidays are NOT
-#   auto-skipped here — the workflow runs anyway and the daemon handles the
-#   "no fresh data" case by simply not generating new orders.
+# Broker:
+# - Default LocalPaperBroker + yfinance (works for NSE/BSE without any
+#   external account).
+# - US fallback to Alpaca if ALPACA_API_KEY + ALPACA_API_SECRET secrets are
+#   set AND --market NYSE is passed.
 #
-# To run manually for testing: Actions tab → Daily paper-trade cycle → Run workflow
+# Schedule:
+# - Fires at 10:30 UTC Mon-Fri = 16:00 IST = 30 min after NSE close (15:30
+#   IST). India does NOT observe daylight saving, so this UTC time is fixed
+#   year-round. GitHub Actions cron can drift ~15 min — fine for daily-close.
+# - Indian trading holidays are NOT auto-skipped; the daemon handles them by
+#   producing no new orders when there's no new data.
+#
+# Manual test: Actions tab -> Daily paper-trade cycle -> Run workflow
 
 on:
   schedule:
-    - cron: "30 21 * * 1-5"
+    - cron: "30 10 * * 1-5"
   workflow_dispatch:
     inputs:
       profile:
-        description: "Risk profile to use for this run"
+        description: "Risk profile for this run"
         required: false
         default: "conservative"
         type: choice
@@ -30,46 +33,65 @@ on:
           - conservative
           - balanced
           - aggressive
+      broker:
+        description: "Broker to use"
+        required: false
+        default: "local"
+        type: choice
+        options:
+          - local
+          - auto
+          - alpaca
+      market:
+        description: "Market"
+        required: false
+        default: "NSE"
+        type: choice
+        options:
+          - NSE
+          - BSE
+          - NYSE
 
 permissions:
-  contents: read
+  contents: write    # needed to commit paper_state.json back to repo
 
 concurrency:
   group: daily-trade
-  cancel-in-progress: false      # never cancel a trade cycle midway
+  cancel-in-progress: false
 
 jobs:
   trade:
     name: Run one daemon cycle
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     env:
-      # Profile defaults to conservative; manual runs can override via dispatch input.
       PROFILE: ${{ github.event.inputs.profile || 'conservative' }}
-      # Trading mode hard-pinned to paper. Live mode requires a separate, opt-in
-      # workflow with extra guards — not included by default.
+      BROKER_CHOICE: ${{ github.event.inputs.broker || 'local' }}
+      MARKET: ${{ github.event.inputs.market || 'NSE' }}
+      # Hard-pinned to paper for this workflow.
       TRADING_MODE: paper
       LIVE_TRADING_ENABLED: "false"
       APP_ENV: production
       LOG_LEVEL: INFO
       DATA_ROOT: ./data
       ALPACA_BASE_URL: https://paper-api.alpaca.markets
-      # Risk limits — same defaults as docker/k8s deploys.
       RISK_MAX_DAILY_LOSS_PCT: "0.02"
       RISK_MAX_DRAWDOWN_PCT: "0.10"
       RISK_MAX_POSITION_PCT: "0.06"
       RISK_MAX_SECTOR_PCT: "0.30"
       RISK_MAX_LEVERAGE: "1.0"
-      # Secrets injected from repo settings.
+      # Secrets — these can be empty; the daemon falls back to LocalPaperBroker.
       ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
       ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
-      # Dummy JWT secret for any imports that touch the API auth module.
-      # Not used by the daemon, but pydantic settings load it.
       JWT_SECRET: ${{ secrets.JWT_SECRET || 'github-actions-not-used-by-daemon' }}
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Need write token to commit state file back
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -82,27 +104,51 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .
 
-      - name: Verify Alpaca credentials are present
+      - name: Show broker selection
         run: |
-          if [ -z "$ALPACA_API_KEY" ] || [ -z "$ALPACA_API_SECRET" ]; then
-            echo "::error::ALPACA_API_KEY and/or ALPACA_API_SECRET secret not set in repo."
-            echo "Add them under Settings → Secrets and variables → Actions."
-            exit 1
+          if [ -n "$ALPACA_API_KEY" ] && [ -n "$ALPACA_API_SECRET" ] && [ "$BROKER_CHOICE" != "local" ]; then
+            echo "Alpaca keys present — using Alpaca paper broker."
+          else
+            echo "No Alpaca keys (or local override) — using LocalPaperBroker with yfinance prices."
+            echo "State persists in data/paper_state.json (committed back after each run)."
           fi
-          echo "Credentials present (values hidden)."
 
-      - name: Restore artifact cache (model registry, audit snapshots)
-        uses: actions/cache@v4
-        with:
-          path: data/
-          key: daemon-data-${{ github.run_id }}
-          restore-keys: |
-            daemon-data-
+      - name: Ensure data directory exists
+        run: mkdir -p data
 
       - name: Run one daemon cycle
         run: |
-          mkdir -p data
-          python scripts/run_daemon.py --run-once --profile "$PROFILE" 2>&1 | tee data/last_run.log
+          python scripts/run_daemon.py \
+            --run-once \
+            --profile "$PROFILE" \
+            --broker "$BROKER_CHOICE" \
+            --market "$MARKET" \
+            2>&1 | tee data/last_run.log
+
+      - name: Show portfolio summary
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "$MARKET" = "NSE" ] || [ "$MARKET" = "BSE" ]; then
+            python scripts/show_portfolio.py --recent 10 --currency INR
+          else
+            python scripts/show_portfolio.py --recent 10 --currency USD
+          fi
+
+      - name: Commit updated state back to repo
+        # Only attempts a commit if paper_state.json actually changed.
+        # No-op when using Alpaca (no local state file is touched).
+        if: ${{ always() && github.event_name != 'pull_request' }}
+        run: |
+          git config user.name  "stock-market-bot"
+          git config user.email "stock-market-bot@users.noreply.github.com"
+          git add -A data/paper_state.json data/last_run.log 2>/dev/null || true
+          if git diff --cached --quiet; then
+            echo "no state changes to commit"
+          else
+            git commit -m "chore(state): paper trading update $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git push
+          fi
 
       - name: Upload run log as artifact
         if: always()
