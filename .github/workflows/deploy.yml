@@ -1,0 +1,50 @@
+name: Deploy to Fly.io
+
+# Auto-deploys the daemon on every push to main. Requires FLY_API_TOKEN to be
+# set in repo secrets (see docs/DEPLOY.md step 15).
+#
+# Skips deploy if FLY_API_TOKEN is not set, so this workflow is harmless on a
+# fresh clone where the user hasn't opted in yet.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "libs/**"
+      - "services/**"
+      - "scripts/**"
+      - "fly.toml"
+      - "infra/docker/Dockerfile.worker"
+      - "pyproject.toml"
+      - ".github/workflows/deploy.yml"
+  workflow_dispatch:    # also allow manual trigger from Actions tab
+
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    name: fly deploy
+    runs-on: ubuntu-latest
+    if: ${{ vars.FLY_DEPLOY_ENABLED == 'true' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup flyctl
+        uses: superfly/flyctl-actions/setup-flyctl@master
+
+      - name: Verify token present
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: |
+          if [ -z "${FLY_API_TOKEN}" ]; then
+            echo "FLY_API_TOKEN secret not set — skipping deploy."
+            echo "See docs/DEPLOY.md step 15 to enable auto-deploy."
+            exit 0
+          fi
+
+      - name: Deploy
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+        run: flyctl deploy --remote-only

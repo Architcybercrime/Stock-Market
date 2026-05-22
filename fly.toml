@@ -1,0 +1,51 @@
+# Fly.io config for the autonomous paper-trading daemon.
+#
+# Deploys ONE service: the daemon process that wakes at every US market close,
+# evaluates strategies, submits paper orders to Alpaca.
+#
+# No public HTTP endpoint. No dashboard. Monitor via:
+#   1. Alpaca web UI (https://app.alpaca.markets) — positions, orders, fills
+#   2. `fly logs --app stock-market-daemon` — every signal/decision in stdout
+#
+# To change risk profile, edit WORKER_ARGS and run `fly deploy`. Restarts in
+# seconds.
+
+app = "stock-market-daemon"      # if name is taken, change here BEFORE `fly launch`
+primary_region = "iad"            # Northern Virginia — close to Alpaca/NYSE
+
+[build]
+  dockerfile = "infra/docker/Dockerfile.worker"
+
+# Non-sensitive defaults. Secrets (Alpaca keys) injected via `fly secrets set`.
+[env]
+  WORKER_KIND          = "run_daemon"
+  WORKER_ARGS          = "--profile conservative"
+  TRADING_MODE         = "paper"
+  LIVE_TRADING_ENABLED = "false"
+  APP_ENV              = "production"
+  LOG_LEVEL            = "INFO"
+  DATA_ROOT            = "/data"
+  ALPACA_BASE_URL      = "https://paper-api.alpaca.markets"
+  RISK_MAX_DAILY_LOSS_PCT = "0.02"
+  RISK_MAX_DRAWDOWN_PCT   = "0.10"
+  RISK_MAX_POSITION_PCT   = "0.06"
+  RISK_MAX_SECTOR_PCT     = "0.30"
+  RISK_MAX_LEVERAGE       = "1.0"
+
+# Persistent volume for KILL_SWITCH file, audit logs, optional model registry.
+[mounts]
+  source      = "data"
+  destination = "/data"
+
+# Single shared-cpu VM. 512MB is enough for the daemon + Alpaca SDK; bumps to
+# higher tier only needed if you also load PyTorch models in the registry.
+[[vm]]
+  size   = "shared-cpu-1x"
+  memory = "512mb"
+
+[deploy]
+  strategy = "immediate"
+
+# No [[services]] section — daemon takes no inbound traffic. Fly will keep the
+# single machine alive without auto-stopping it (auto-stop only applies to
+# service-bound machines).

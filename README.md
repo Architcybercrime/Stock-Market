@@ -109,6 +109,22 @@ evaluate the results honestly. Also read
 [docs/REALISTIC_EXPECTATIONS.md](docs/REALISTIC_EXPECTATIONS.md) to calibrate
 what success looks like.
 
+## Deploy (run it 24/7 in the cloud)
+
+Don't want to keep your laptop on for the daemon? Deploy it to Fly.io. Total
+cost is ~$3/mo, covered by Fly's $5/mo included credit (effectively $0).
+
+```bash
+# After installing flyctl and creating an Alpaca paper account:
+fly launch --no-deploy --copy-config
+fly secrets set ALPACA_API_KEY=... ALPACA_API_SECRET=...
+fly volumes create data --size 1 --region iad
+fly deploy
+fly logs    # watch it run
+```
+
+Full walkthrough in [docs/DEPLOY.md](docs/DEPLOY.md).
+
 ## Build roadmap
 
 See [docs/ROADMAP.md](docs/ROADMAP.md). Phase 1 (foundations + paper trading)

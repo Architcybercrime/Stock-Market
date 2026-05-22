@@ -1,0 +1,59 @@
+# Keep image small + reproducible. Everything not needed at runtime is excluded.
+
+.git/
+.github/
+.gitignore
+.dockerignore
+.claude/
+
+# Local environments + caches
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+
+# Local data — never ship samples into the image
+data/
+artifacts/
+mlruns/
+backtest_results/
+reports/
+*.parquet
+*.feather
+*.pkl
+*.joblib
+*.onnx
+*.h5
+*.ckpt
+
+# Frontend (the daemon doesn't need it)
+frontend/
+
+# Infra files for OTHER deploy targets
+infra/k8s/
+infra/terraform/
+infra/docker/Dockerfile.api
+infra/prometheus.yml
+
+# Docs / IDE
+docs/
+*.md
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Tests are not needed in the runtime image
+tests/
+
+# Secrets must never be in the build context
+.env
+.env.local
+*.pem
+*.key
+secrets/
