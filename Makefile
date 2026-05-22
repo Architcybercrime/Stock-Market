@@ -57,6 +57,13 @@ api:
 frontend:
 	cd frontend && npm run dev
 
+PROFILE ?= conservative
+daemon:
+	python scripts/run_daemon.py --profile $(PROFILE)
+
+daemon-once:
+	python scripts/run_daemon.py --profile $(PROFILE) --run-once
+
 clean:
 	rm -rf .pytest_cache .mypy_cache .ruff_cache build dist *.egg-info
 	find . -type d -name __pycache__ -exec rm -rf {} +

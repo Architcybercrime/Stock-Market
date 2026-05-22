@@ -81,32 +81,33 @@ docs/                Architecture, roadmap, risk policy, compliance
 
 ## Quickstart (local)
 
-Requires Python 3.11+, Node 20+, Docker, Docker Compose.
+Requires Python 3.11+, Node 20+. Alpaca paper account (free, 5 min signup).
 
 ```bash
-# 1. Bring up Postgres, Redis, MinIO, Kafka
-docker compose up -d postgres redis
-
-# 2. Python env
+# 1. Python env
 python -m venv .venv
-. .venv/bin/activate  # or .venv\Scripts\activate on Windows
+. .venv/bin/activate                  # or .venv\Scripts\activate on Windows
 pip install -e ".[dev]"
 
-# 3. Pull a year of daily data for a few tickers
-python scripts/ingest_history.py --symbols AAPL MSFT SPY --start 2018-01-01
+# 2. Configure Alpaca paper credentials in .env (see docs/HOW_TO_RUN.md)
+cp .env.example .env
 
-# 4. Train baseline LSTM with walk-forward validation
-python scripts/train_model.py --symbol AAPL --model lstm
+# 3. Smoke test: one cycle of the autonomous daemon
+python scripts/run_daemon.py --run-once --profile conservative
 
-# 5. Backtest a simple momentum strategy with realistic costs
-python scripts/run_backtest.py --strategy momentum --symbols AAPL MSFT SPY
+# 4. Run forever on the market-close schedule
+python scripts/run_daemon.py     # interactive — pick profile when prompted
 
-# 6. Start the API
-uvicorn services.api.main:app --reload --port 8000
-
-# 7. Start the dashboard
-cd frontend && npm install && npm run dev
+# 5. Watch via dashboard (in two more terminals)
+make api                          # FastAPI on :8000
+make frontend                     # Next.js dashboard on :3000
 ```
+
+**Read [docs/HOW_TO_RUN.md](docs/HOW_TO_RUN.md) before running** — it's a
+short, ordered walkthrough that explains what each piece does and how to
+evaluate the results honestly. Also read
+[docs/REALISTIC_EXPECTATIONS.md](docs/REALISTIC_EXPECTATIONS.md) to calibrate
+what success looks like.
 
 ## Build roadmap
 
