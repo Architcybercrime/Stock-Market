@@ -1,0 +1,113 @@
+name: Daily paper-trade cycle
+
+# Runs ONE cycle of the autonomous daemon, once per US trading day after
+# market close. No persistent server required — positions and orders live
+# at Alpaca, which is the source of truth.
+#
+# Schedule notes:
+# - NYSE closes at 16:00 ET = 20:00 UTC (EDT, summer) or 21:00 UTC (EST, winter)
+# - We fire at 21:30 UTC year-round. That's 30 min after close in winter and
+#   90 min after close in summer. Either is safely after the print settles.
+# - GitHub Actions cron is "best effort" and can drift up to ~15 min. Daily
+#   close trading is robust to that drift.
+# - Sat/Sun are skipped by the cron expression. US trading holidays are NOT
+#   auto-skipped here — the workflow runs anyway and the daemon handles the
+#   "no fresh data" case by simply not generating new orders.
+#
+# To run manually for testing: Actions tab → Daily paper-trade cycle → Run workflow
+
+on:
+  schedule:
+    - cron: "30 21 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      profile:
+        description: "Risk profile to use for this run"
+        required: false
+        default: "conservative"
+        type: choice
+        options:
+          - conservative
+          - balanced
+          - aggressive
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-trade
+  cancel-in-progress: false      # never cancel a trade cycle midway
+
+jobs:
+  trade:
+    name: Run one daemon cycle
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      # Profile defaults to conservative; manual runs can override via dispatch input.
+      PROFILE: ${{ github.event.inputs.profile || 'conservative' }}
+      # Trading mode hard-pinned to paper. Live mode requires a separate, opt-in
+      # workflow with extra guards — not included by default.
+      TRADING_MODE: paper
+      LIVE_TRADING_ENABLED: "false"
+      APP_ENV: production
+      LOG_LEVEL: INFO
+      DATA_ROOT: ./data
+      ALPACA_BASE_URL: https://paper-api.alpaca.markets
+      # Risk limits — same defaults as docker/k8s deploys.
+      RISK_MAX_DAILY_LOSS_PCT: "0.02"
+      RISK_MAX_DRAWDOWN_PCT: "0.10"
+      RISK_MAX_POSITION_PCT: "0.06"
+      RISK_MAX_SECTOR_PCT: "0.30"
+      RISK_MAX_LEVERAGE: "1.0"
+      # Secrets injected from repo settings.
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
+      # Dummy JWT secret for any imports that touch the API auth module.
+      # Not used by the daemon, but pydantic settings load it.
+      JWT_SECRET: ${{ secrets.JWT_SECRET || 'github-actions-not-used-by-daemon' }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Verify Alpaca credentials are present
+        run: |
+          if [ -z "$ALPACA_API_KEY" ] || [ -z "$ALPACA_API_SECRET" ]; then
+            echo "::error::ALPACA_API_KEY and/or ALPACA_API_SECRET secret not set in repo."
+            echo "Add them under Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          echo "Credentials present (values hidden)."
+
+      - name: Restore artifact cache (model registry, audit snapshots)
+        uses: actions/cache@v4
+        with:
+          path: data/
+          key: daemon-data-${{ github.run_id }}
+          restore-keys: |
+            daemon-data-
+
+      - name: Run one daemon cycle
+        run: |
+          mkdir -p data
+          python scripts/run_daemon.py --run-once --profile "$PROFILE" 2>&1 | tee data/last_run.log
+
+      - name: Upload run log as artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: daemon-log-${{ github.run_id }}
+          path: data/last_run.log
+          retention-days: 30

@@ -109,21 +109,33 @@ evaluate the results honestly. Also read
 [docs/REALISTIC_EXPECTATIONS.md](docs/REALISTIC_EXPECTATIONS.md) to calibrate
 what success looks like.
 
-## Deploy (run it 24/7 in the cloud)
+## Deploy (run it 24/7 without your laptop on)
 
-Don't want to keep your laptop on for the daemon? Deploy it to Fly.io. Total
-cost is ~$3/mo, covered by Fly's $5/mo included credit (effectively $0).
+Two options. Pick one based on whether you have a credit card.
+
+### Option A — GitHub Actions cron (free, no credit card)
+
+For daily-at-close trading, GitHub's built-in scheduler is sufficient. Add
+your Alpaca paper keys as repo secrets and the daemon fires one cycle every
+US trading day at 21:30 UTC. Zero servers to manage.
+
+Full walkthrough: [docs/DEPLOY_GITHUB_ACTIONS.md](docs/DEPLOY_GITHUB_ACTIONS.md)
+
+### Option B — Fly.io (~$0/mo with included credit, requires card)
+
+A real always-on server. ~$3/mo of compute, covered by Fly's $5/mo included
+credit. Requires a card for signup verification (not charged unless usage
+exceeds the credit, which this won't).
 
 ```bash
-# After installing flyctl and creating an Alpaca paper account:
 fly launch --no-deploy --copy-config
 fly secrets set ALPACA_API_KEY=... ALPACA_API_SECRET=...
 fly volumes create data --size 1 --region iad
 fly deploy
-fly logs    # watch it run
+fly logs
 ```
 
-Full walkthrough in [docs/DEPLOY.md](docs/DEPLOY.md).
+Full walkthrough: [docs/DEPLOY.md](docs/DEPLOY.md)
 
 ## Build roadmap
 

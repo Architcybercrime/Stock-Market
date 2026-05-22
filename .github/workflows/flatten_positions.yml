@@ -1,0 +1,81 @@
+name: Emergency flatten (sell all positions)
+
+# Manual-only emergency stop. Run this from the Actions tab to:
+#   1. Cancel every open order at Alpaca
+#   2. Sell every open position back to flat
+#
+# Use this instead of the file-based kill switch when you're on GitHub Actions
+# cron — there's no persistent server to host a KILL_SWITCH file.
+#
+# This workflow is gated by an "i_understand" input so it cannot fire by accident.
+
+on:
+  workflow_dispatch:
+    inputs:
+      i_understand:
+        description: "Type FLATTEN ALL to confirm. This sells every paper position."
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  flatten:
+    name: Flatten paper account
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    env:
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
+      ALPACA_BASE_URL: https://paper-api.alpaca.markets
+      TRADING_MODE: paper
+      LIVE_TRADING_ENABLED: "false"
+      JWT_SECRET: not-used-here
+
+    steps:
+      - name: Verify confirmation
+        if: ${{ github.event.inputs.i_understand != 'FLATTEN ALL' }}
+        run: |
+          echo "::error::Confirmation phrase missing. You must type 'FLATTEN ALL' exactly."
+          exit 1
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install dependencies
+        run: pip install alpaca-py
+
+      - name: Cancel all open orders + close all positions
+        run: |
+          python - <<'PY'
+          import os
+          from alpaca.trading.client import TradingClient
+
+          client = TradingClient(
+              api_key=os.environ["ALPACA_API_KEY"],
+              secret_key=os.environ["ALPACA_API_SECRET"],
+              paper=True,
+          )
+
+          # 1. Cancel any open orders first so they don't fight the close-all.
+          open_orders = client.cancel_orders()
+          print(f"cancelled {len(open_orders)} open orders")
+
+          # 2. Close every position at market.
+          closed = client.close_all_positions(cancel_orders=True)
+          print(f"closed {len(closed)} positions:")
+          for c in closed:
+              print(f"  {c.symbol}: status={c.status}")
+
+          # 3. Print the account snapshot after.
+          acc = client.get_account()
+          print(f"\nfinal account: equity=${acc.equity} cash=${acc.cash}")
+          print("positions left:", {p.symbol: p.qty for p in client.get_all_positions()})
+          PY
