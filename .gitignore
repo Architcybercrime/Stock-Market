@@ -30,9 +30,12 @@ out/
 
 # Data — never commit market data, models, or secrets
 data/
-models/
+/models/
 artifacts/
 mlruns/
+# But DO commit the source code under services/ml/models/
+!services/ml/models/
+!services/ml/models/**
 *.parquet
 *.feather
 *.pkl
