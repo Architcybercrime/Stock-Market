@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+.venv/
+venv/
+env/
+.eggs/
+*.egg-info/
+*.egg
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.tox/
+.hypothesis/
+
+# Node / Next.js
+node_modules/
+.next/
+out/
+.npm/
+*.log
+.eslintcache
+
+# Data — never commit market data, models, or secrets
+data/
+models/
+artifacts/
+mlruns/
+*.parquet
+*.feather
+*.pkl
+*.joblib
+*.onnx
+*.h5
+*.ckpt
+
+# Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+secrets/
+.secrets/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+.DS_Store
+Thumbs.db
+
+# Claude Code working dir
+.claude/
+
+# Backtest output
+backtest_results/
+reports/
