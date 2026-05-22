@@ -72,6 +72,7 @@ class TradingDaemon:
         universe: list[str],
         signal_generators: list[SignalGenerator] | None = None,
         history_bars: int = 260,
+        timeframe: str = "1d",
     ) -> None:
         self.broker = broker
         self.data_source = data_source
@@ -83,6 +84,7 @@ class TradingDaemon:
             MLSignal(),
         ]
         self.history_bars = history_bars
+        self.timeframe = timeframe
         self.aggregator = SignalAggregator(profile)
 
         # Risk infrastructure
@@ -124,12 +126,19 @@ class TradingDaemon:
     def _pull_history(self, end: datetime) -> dict[str, pd.DataFrame]:
         from datetime import timedelta
 
-        # Roughly 1 calendar day per bar with buffer for weekends/holidays.
-        start = end - timedelta(days=int(self.history_bars * 1.6))
+        # Window size scales with the chosen timeframe so we get roughly
+        # `history_bars` bars per symbol. Buffered for weekends/holidays.
+        days_per_bar = {
+            "1d": 1.6,        # ~1 bar / day + weekend buffer
+            "1h": 1 / 4.5,    # ~6.5 trading hours per day; allow buffer
+            "30m": 1 / 9.0,
+            "15m": 1 / 18.0,
+        }.get(self.timeframe, 1.6)
+        start = end - timedelta(days=max(7, int(self.history_bars * days_per_bar)))
         out: dict[str, pd.DataFrame] = {}
         for sym in self.universe:
             try:
-                df = self.data_source.fetch_bars(sym, start, end, "1d")
+                df = self.data_source.fetch_bars(sym, start, end, self.timeframe)
             except Exception as exc:
                 log.warning("daemon.fetch_failed", symbol=sym, error=str(exc))
                 continue

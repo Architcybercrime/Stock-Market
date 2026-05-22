@@ -164,6 +164,16 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument("--run-once", action="store_true", help="Run a single cycle and exit (no scheduler)")
     parser.add_argument("--history-bars", type=int, default=260)
+    parser.add_argument(
+        "--timeframe",
+        default="1d",
+        choices=["1d", "1h", "30m", "15m"],
+        help=(
+            "Bar timeframe. Default 1d (daily). Intraday timeframes trade more "
+            "often but have higher cost drag and worse-tested behavior — only "
+            "use if you understand the trade-off."
+        ),
+    )
     args = parser.parse_args(argv)
 
     configure_logging(settings.log_level)
@@ -190,10 +200,11 @@ def main(argv: list[str] | None = None) -> int:
         return 2
 
     currency = "INR" if args.market in ("NSE", "BSE") else "USD"
-    print(f"[market]   {args.market} (currency: {currency})")
-    print(f"[broker]   {broker_label}")
+    print(f"[market]    {args.market} (currency: {currency})")
+    print(f"[broker]    {broker_label}")
+    print(f"[timeframe] {args.timeframe}{'  [intraday — higher cost drag]' if args.timeframe != '1d' else ''}")
     print(
-        f"[universe] {len(universe)} symbols: "
+        f"[universe]  {len(universe)} symbols: "
         f"{' '.join(universe[:6])}{'...' if len(universe) > 6 else ''}"
     )
 
@@ -203,6 +214,7 @@ def main(argv: list[str] | None = None) -> int:
         profile=profile,
         universe=universe,
         history_bars=args.history_bars,
+        timeframe=args.timeframe,
     )
 
     if args.run_once:

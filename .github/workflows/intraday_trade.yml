@@ -1,0 +1,119 @@
+name: Intraday trade cycle (opt-in)
+
+# Intraday version of the trade workflow. Fires every hour during NSE hours
+# and uses 1-hour bars instead of daily. DISABLED by default — to enable,
+# set the repository variable INTRADAY_ENABLED to "true" in:
+#   Settings -> Secrets and variables -> Actions -> Variables -> New
+#
+# Why disabled by default:
+# - The shipped strategies (12-month momentum, daily mean reversion) were
+#   designed for end-of-day frequency. Running them on hourly bars gives a
+#   different signal that has NOT been validated.
+# - Indian round-trip cost is ~0.17%. Trading 6x per day instead of 1x per
+#   day multiplies cost drag by ~6x. You need a real edge to overcome this.
+# - yfinance has limited intraday history (~60 days for hourly), which
+#   constrains backtesting and ML training.
+#
+# If you understand the trade-off and want it on, set INTRADAY_ENABLED=true.
+
+on:
+  schedule:
+    # NSE trades 09:15-15:30 IST = 03:45-10:00 UTC. We fire on the hour
+    # at 04:30, 05:30, ... 09:30 UTC (= 10:00, 11:00, ... 15:00 IST).
+    - cron: "30 4 * * 1-5"
+    - cron: "30 5 * * 1-5"
+    - cron: "30 6 * * 1-5"
+    - cron: "30 7 * * 1-5"
+    - cron: "30 8 * * 1-5"
+    - cron: "30 9 * * 1-5"
+  workflow_dispatch:
+    inputs:
+      timeframe:
+        description: "Intraday timeframe"
+        required: false
+        default: "1h"
+        type: choice
+        options: ["1h", "30m", "15m"]
+      profile:
+        description: "Risk profile"
+        required: false
+        default: "conservative"
+        type: choice
+        options: [conservative, balanced, aggressive]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: intraday-trade
+  cancel-in-progress: false
+
+jobs:
+  intraday:
+    name: Intraday cycle
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    # Gate behind repo variable; default off so a fresh clone is safe.
+    if: ${{ vars.INTRADAY_ENABLED == 'true' || github.event_name == 'workflow_dispatch' }}
+    env:
+      PROFILE: ${{ github.event.inputs.profile || 'conservative' }}
+      TIMEFRAME: ${{ github.event.inputs.timeframe || '1h' }}
+      TRADING_MODE: paper
+      LIVE_TRADING_ENABLED: "false"
+      APP_ENV: production
+      LOG_LEVEL: INFO
+      DATA_ROOT: ./data
+      RISK_MAX_DAILY_LOSS_PCT: "0.02"
+      RISK_MAX_DRAWDOWN_PCT: "0.10"
+      RISK_MAX_POSITION_PCT: "0.06"
+      RISK_MAX_SECTOR_PCT: "0.30"
+      RISK_MAX_LEVERAGE: "1.0"
+      ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
+      ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
+      JWT_SECRET: ${{ secrets.JWT_SECRET || 'github-actions-not-used' }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+
+      - name: Run intraday cycle
+        run: |
+          mkdir -p data
+          python scripts/run_daemon.py \
+            --run-once \
+            --profile "$PROFILE" \
+            --broker local \
+            --market NSE \
+            --timeframe "$TIMEFRAME" \
+            2>&1 | tee data/last_run.log
+
+      - name: Commit updated state
+        run: |
+          git config user.name  "stock-market-bot"
+          git config user.email "stock-market-bot@users.noreply.github.com"
+          git add -A data/paper_state.json data/last_run.log
+          if git diff --cached --quiet; then
+            echo "no state changes to commit"
+          else
+            git commit -m "chore(intraday): $TIMEFRAME tick $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git push
+          fi
+
+      - name: Upload run log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: intraday-log-${{ github.run_id }}
+          path: data/last_run.log
+          retention-days: 14

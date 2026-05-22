@@ -1,0 +1,55 @@
+name: Daily snapshot refresh
+
+# Refreshes data/paper_state.json with current marks every day (incl weekends)
+# so the dashboard always shows fresh data. Does NOT submit any orders — that's
+# the daily_trade workflow's job (weekdays only).
+
+on:
+  schedule:
+    # Run twice a day to keep the dashboard fresh:
+    # - 11:00 UTC  = 16:30 IST  = ~30 min after the trade workflow on weekdays
+    # - 02:00 UTC  = 07:30 IST  = morning refresh so weekend marks update
+    - cron: "0 11 * * *"
+    - cron: "0 2 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: snapshot
+  cancel-in-progress: false
+
+jobs:
+  snapshot:
+    name: Refresh marks
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install minimal deps
+        run: pip install yfinance pandas
+
+      - name: Refresh snapshot
+        run: python scripts/refresh_snapshot.py
+
+      - name: Commit refreshed state
+        run: |
+          git config user.name  "stock-market-bot"
+          git config user.email "stock-market-bot@users.noreply.github.com"
+          git add -A data/paper_state.json
+          if git diff --cached --quiet; then
+            echo "no snapshot changes to commit"
+          else
+            git commit -m "chore(snapshot): mark-to-market refresh $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git push
+          fi

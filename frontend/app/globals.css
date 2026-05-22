@@ -7,11 +7,67 @@
 }
 
 html, body {
-  background: #0b0d10;
-  color: #e6e8eb;
+  background: #05060a;
+  color: #f5f7fa;
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(1200px 600px at 80% -10%, rgba(99, 102, 241, 0.18), transparent 60%),
+    radial-gradient(900px 500px at -10% 110%, rgba(34, 211, 238, 0.15), transparent 60%),
+    #05060a;
+  background-attachment: fixed;
 }
 
 * {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
+
+@layer components {
+  .glass {
+    @apply bg-glass border border-border backdrop-blur-xl;
+    box-shadow:
+      0 1px 0 rgba(255, 255, 255, 0.06) inset,
+      0 20px 50px -10px rgba(0, 0, 0, 0.4);
+  }
+  .glass-hi {
+    @apply bg-glassHi border border-borderHi;
+  }
+  .num {
+    @apply font-mono tabular-nums tracking-tight;
+  }
+  .chip {
+    @apply inline-flex items-center gap-1.5 px-2 py-0.5 text-[10px] uppercase tracking-wider rounded-md border;
+  }
+  .chip-good {
+    @apply text-good border-good/40 bg-good/10;
+  }
+  .chip-bad {
+    @apply text-bad border-bad/40 bg-bad/10;
+  }
+  .chip-muted {
+    @apply text-muted border-border bg-glass;
+  }
+  .grad-text {
+    @apply bg-clip-text text-transparent;
+    background-image: linear-gradient(135deg, #c7d2fe 0%, #67e8f9 100%);
+  }
+  .shimmer-bg {
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.02) 0%,
+      rgba(255, 255, 255, 0.08) 50%,
+      rgba(255, 255, 255, 0.02) 100%
+    );
+    background-size: 200% 100%;
+    animation: shimmer 2.5s linear infinite;
+  }
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.08); border-radius: 8px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.16); }

@@ -10,17 +10,21 @@ name: Daily paper-trade cycle
 # - US fallback to Alpaca if ALPACA_API_KEY + ALPACA_API_SECRET secrets are
 #   set AND --market NYSE is passed.
 #
-# Schedule:
-# - Fires at 10:30 UTC Mon-Fri = 16:00 IST = 30 min after NSE close (15:30
-#   IST). India does NOT observe daylight saving, so this UTC time is fixed
-#   year-round. GitHub Actions cron can drift ~15 min — fine for daily-close.
-# - Indian trading holidays are NOT auto-skipped; the daemon handles them by
-#   producing no new orders when there's no new data.
+# Schedule (3 decision points per NSE trading day, Mon-Fri):
+# - 04:00 UTC = 09:30 IST → 15 min after NSE open (morning rebalance)
+# - 07:30 UTC = 13:00 IST → midday rebalance
+# - 10:30 UTC = 16:00 IST → 30 min after close (end-of-day rebalance)
+# India does NOT observe daylight saving, so these UTC times are fixed
+# year-round. GitHub Actions cron can drift ~15 min — fine for these windows.
+# Indian trading holidays are NOT auto-skipped; the daemon handles them by
+# producing no new orders when there's no new data.
 #
 # Manual test: Actions tab -> Daily paper-trade cycle -> Run workflow
 
 on:
   schedule:
+    - cron: "0 4 * * 1-5"
+    - cron: "30 7 * * 1-5"
     - cron: "30 10 * * 1-5"
   workflow_dispatch:
     inputs:

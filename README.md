@@ -4,6 +4,14 @@ A production-oriented, modular AI trading platform. Defaults to **Indian
 equity markets (NSE)** with Zerodha-style cost modelling. Built with capital
 preservation first, risk-adjusted returns second, automation third.
 
+**Live dashboard** (once Pages is enabled):
+**https://architcybercrime.github.io/Stock-Market/**
+
+The dashboard is a static page that reads `data/paper_state.json` directly
+from this repo — refreshes whenever the daemon or snapshot workflow commits
+new state. See [docs/DASHBOARD.md](docs/DASHBOARD.md) for the one-time
+GitHub Pages enable step.
+
 > **Status: scaffold.** Working foundation for *paper trading on real market
 > data*. No real-money broker is wired up yet — that's deliberate. Read
 > [docs/INDIA_GUIDE.md](docs/INDIA_GUIDE.md) for the Indian-market specifics
