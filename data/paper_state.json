@@ -1,12 +1,106 @@
 {
   "schema_version": 1,
-  "cash": "1000000.00",
+  "cash": "849483.872429962562004",
   "initial_capital": "1000000.00",
+  "positions": {
+    "AXISBANK.NS": "24",
+    "NESTLEIND.NS": "42",
+    "SBIN.NS": "63"
+  },
+  "avg_costs": {
+    "AXISBANK.NS": "1285.528564416504",
+    "NESTLEIND.NS": "1423.2422855834961",
+    "SBIN.NS": "949.2949322082519"
+  },
   "realized_pnl": "0",
-  "positions": {},
-  "avg_costs": {},
-  "orders": [],
-  "fills": [],
+  "orders": [
+    {
+      "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
+      "client_order_id": "sm-16dc4042b65d",
+      "strategy": "daemon",
+      "symbol": "AXISBANK.NS",
+      "side": "buy",
+      "qty": "24",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "24",
+      "avg_fill_price": "1285.528564416504",
+      "fee": "16.752884840733696",
+      "reject_reason": null,
+      "created_at": "2026-05-23T13:14:57.030759+00:00"
+    },
+    {
+      "id": "5342617f-1970-4184-a235-d2f11b5442a5",
+      "client_order_id": "sm-ae3d12086e5e",
+      "strategy": "daemon",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "42",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "42",
+      "avg_fill_price": "1423.2422855834961",
+      "fee": "32.45822446031323",
+      "reject_reason": null,
+      "created_at": "2026-05-23T13:14:57.305354+00:00"
+    },
+    {
+      "id": "e85a4e47-f7ba-4a05-8760-dbfe566a6622",
+      "client_order_id": "sm-61dd789a347a",
+      "strategy": "daemon",
+      "symbol": "SBIN.NS",
+      "side": "buy",
+      "qty": "63",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "63",
+      "avg_fill_price": "949.2949322082519",
+      "fee": "32.47419111358917",
+      "reject_reason": null,
+      "created_at": "2026-05-23T13:14:57.717106+00:00"
+    }
+  ],
+  "fills": [
+    {
+      "id": "257477df-b52a-42ab-ada9-8b72137a9a07",
+      "order_id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
+      "symbol": "AXISBANK.NS",
+      "side": "buy",
+      "qty": "24",
+      "price": "1285.528564416504",
+      "fee": "16.752884840733696",
+      "venue": "local_paper",
+      "ts": "2026-05-23T13:14:57.161561+00:00"
+    },
+    {
+      "id": "82bf6f2d-d27c-4d41-9978-b957641aa3c7",
+      "order_id": "5342617f-1970-4184-a235-d2f11b5442a5",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "42",
+      "price": "1423.2422855834961",
+      "fee": "32.45822446031323",
+      "venue": "local_paper",
+      "ts": "2026-05-23T13:14:57.447358+00:00"
+    },
+    {
+      "id": "3caa515c-ab2f-4582-8c48-2a04eaabf564",
+      "order_id": "e85a4e47-f7ba-4a05-8760-dbfe566a6622",
+      "symbol": "SBIN.NS",
+      "side": "buy",
+      "qty": "63",
+      "price": "949.2949322082519",
+      "fee": "32.47419111358917",
+      "venue": "local_paper",
+      "ts": "2026-05-23T13:14:57.865199+00:00"
+    }
+  ],
   "equity_history": [
     [
       "2026-05-22T12:04:59.135605+00:00",
@@ -23,11 +117,19 @@
     [
       "2026-05-23T12:47:18.639885+00:00",
       "1000000.00"
+    ],
+    [
+      "2026-05-23T13:14:57.304752+00:00",
+      "999980.1621551007"
+    ],
+    [
+      "2026-05-23T13:14:57.716151+00:00",
+      "999941.7269107429"
+    ],
+    [
+      "2026-05-23T13:14:58.413810+00:00",
+      "999903.2727595523"
     ]
   ],
-  "last_prices": {},
-  "mark_to_market_equity": 1000000.0,
-  "currency": "INR",
-  "updated_at": "2026-05-22T12:04:59.135605+00:00",
-  "snapshot_at": "2026-05-23T12:47:18.639885+00:00"
+  "updated_at": "2026-05-23T13:14:58.413832+00:00"
 }
