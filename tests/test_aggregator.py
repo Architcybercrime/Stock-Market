@@ -71,6 +71,33 @@ def test_position_cap_enforced():
         assert out.target_weights["AAA"] <= p.max_position_pct + 1e-6
 
 
+def test_zero_confidence_signal_does_not_drag_down_combined():
+    """Regression: an ML signal returning conf=0 (no model registered) must NOT
+    pull the combined confidence below profile.min_confidence and silently
+    filter out otherwise-strong opinions from momentum + mean-reversion."""
+    agg = SignalAggregator(PROFILES[RiskProfileName.CONSERVATIVE])
+    signals = {
+        "SBIN.NS": [
+            StrategySignal("momentum", "SBIN.NS", 0.98, 0.80, "strong"),
+            StrategySignal("mean_reversion", "SBIN.NS", 0.27, 0.55, "mild"),
+            StrategySignal("ml", "SBIN.NS", 0.0, 0.0, "no model"),
+        ],
+    }
+    history = {"SBIN.NS": _hist([100 + i for i in range(120)])}
+    out = agg.aggregate(
+        signals_by_symbol=signals,
+        price_history=history,
+        current_positions={},
+        last_prices={"SBIN.NS": 800.0},
+        nav=1_000_000.0,
+    )
+    # The zero-conf ML signal should be ignored in the confidence average.
+    # mean(0.80, 0.55) = 0.675 which clears Conservative's 0.55 threshold.
+    assert any(c.symbol == "SBIN.NS" for c in out.selected), (
+        "SBIN should be selected — ML's conf=0 must not drag the average down"
+    )
+
+
 def test_held_position_sold_when_signal_disappears():
     agg = SignalAggregator(PROFILES[RiskProfileName.BALANCED])
     # No signals at all -> any held positions should be sold.

@@ -63,7 +63,15 @@ def _combine_symbol_signals(
     signals: list[StrategySignal],
     profile: RiskProfile,
 ) -> CombinedSignal:
-    """Confidence-weighted combination of per-strategy signals for one symbol."""
+    """Confidence-weighted combination of per-strategy signals for one symbol.
+
+    "No opinion" signals (confidence == 0, e.g. ML signal when no model is
+    registered) are EXCLUDED from the combined confidence — otherwise they
+    artificially drag down the average and filter out strong opinions from
+    the other strategies. They still don't contribute to the weighted score
+    because their effective_w is also zero, so this is the right semantics:
+    "no opinion" = "doesn't vote at all", not "votes zero".
+    """
     weight_map = {
         "momentum": profile.weight_momentum,
         "mean_reversion": profile.weight_mean_reversion,
@@ -71,20 +79,21 @@ def _combine_symbol_signals(
     }
     total_w = 0.0
     weighted_score = 0.0
-    confidences: list[float] = []
+    opinion_confidences: list[float] = []
     for s in signals:
         strat_w = weight_map.get(s.strategy, 0.0)
         effective_w = strat_w * s.confidence
         weighted_score += effective_w * s.score
         total_w += effective_w
-        confidences.append(s.confidence)
+        if s.confidence > 0:
+            opinion_confidences.append(s.confidence)
 
-    if total_w == 0:
+    if total_w == 0 or not opinion_confidences:
         score = 0.0
         confidence = 0.0
     else:
         score = weighted_score / total_w
-        confidence = float(np.mean(confidences))
+        confidence = float(np.mean(opinion_confidences))
 
     return CombinedSignal(
         symbol=symbol,
