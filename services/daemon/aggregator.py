@@ -159,22 +159,45 @@ class SignalAggregator:
             if c.confidence >= p.min_confidence and c.score > 0
         ]
 
-        # 3. Rank, pick top-N.
+        # 3. Rank, pick top-N. In opportunity-adaptive mode max_positions is a
+        # CEILING — we only fill positions whose conviction (score * confidence)
+        # is above a quality bar, never artificially padding to reach a count.
         kept.sort(key=lambda c: c.score * c.confidence, reverse=True)
-        selected = kept[: p.max_positions]
+        if p.opportunity_adaptive:
+            quality_bar = max(0.25, p.min_confidence * 0.5)
+            selected = [c for c in kept if c.score * c.confidence >= quality_bar][: p.max_positions]
+        else:
+            selected = kept[: p.max_positions]
 
-        # 4. Score-weighted target allocation.
+        # 4. Determine how much capital to actually deploy.
+        # In opportunity-adaptive mode, the *deployed* fraction scales with the
+        # aggregate quality of selected signals: many strong signals -> deploy
+        # nearly the full ceiling; few or weak signals -> stay mostly in cash.
+        if selected and p.opportunity_adaptive:
+            conv = float(np.mean([c.score * c.confidence for c in selected]))
+            count_factor = min(1.0, len(selected) / max(1, p.max_positions))
+            quality_factor = min(1.0, conv * 2.5)   # conv 0.40+ saturates to 1.0
+            effective_invested_pct = (
+                p.target_invested_pct
+                * (0.4 + 0.6 * quality_factor)
+                * (0.5 + 0.5 * count_factor)
+            )
+        else:
+            effective_invested_pct = p.target_invested_pct
+
+        # 5. Score-weighted target allocation against the effective deployment.
         if selected:
             score_total = sum(c.score for c in selected) or 1.0
             base_weights: dict[str, float] = {
-                c.symbol: (c.score / score_total) * p.target_invested_pct
+                c.symbol: (c.score / score_total) * effective_invested_pct
                 for c in selected
             }
         else:
             base_weights = {}
 
-        # 5. Volatility scaling (optional).
-        if p.use_volatility_targeting:
+        # 6. Volatility scaling (optional). Renormalize to whatever effective
+        # invested pct we decided in step 4 — NOT the static profile target.
+        if p.use_volatility_targeting and base_weights:
             multipliers: dict[str, float] = {}
             for sym in base_weights:
                 hist = price_history.get(sym)
@@ -182,10 +205,9 @@ class SignalAggregator:
                     multipliers[sym] = 1.0
                 else:
                     multipliers[sym] = _volatility_target_weight(hist, p.vol_target_annual)
-            # Re-normalize after scaling
             scaled = {sym: base_weights[sym] * multipliers[sym] for sym in base_weights}
             total_scaled = sum(scaled.values()) or 1.0
-            scale_back = p.target_invested_pct / total_scaled
+            scale_back = effective_invested_pct / total_scaled
             base_weights = {sym: w * scale_back for sym, w in scaled.items()}
 
         # 6. Cap per position.
@@ -199,8 +221,8 @@ class SignalAggregator:
 
         # Re-normalize (caps may have freed up budget; min cut may have freed more)
         total = sum(capped_weights.values())
-        if total > p.target_invested_pct and total > 0:
-            scale = p.target_invested_pct / total
+        if total > effective_invested_pct and total > 0:
+            scale = effective_invested_pct / total
             capped_weights = {sym: w * scale for sym, w in capped_weights.items()}
 
         # 7. Current weights (for display + delta computation).

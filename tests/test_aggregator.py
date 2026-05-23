@@ -98,6 +98,61 @@ def test_zero_confidence_signal_does_not_drag_down_combined():
     )
 
 
+def test_opportunity_mode_deploys_more_with_stronger_signals():
+    """Opportunity-adaptive mode should deploy MORE capital when many strong
+    signals are present, and LESS when only marginal signals exist."""
+    agg = SignalAggregator(PROFILES[RiskProfileName.OPPORTUNITY])
+
+    history = {f"S{i}": _hist([100 + j for j in range(120)]) for i in range(10)}
+    last_prices = {f"S{i}": 100.0 for i in range(10)}
+
+    # 8 strong signals -> should deploy substantially
+    strong_signals = {
+        f"S{i}": [
+            StrategySignal("momentum", f"S{i}", 0.95, 0.85, ""),
+            StrategySignal("mean_reversion", f"S{i}", 0.40, 0.60, ""),
+        ]
+        for i in range(8)
+    }
+    strong = agg.aggregate(strong_signals, history, {}, last_prices, nav=1_000_000.0)
+    strong_deployed = sum(strong.target_weights.values())
+
+    # 2 marginal signals -> should deploy little
+    marginal_signals = {
+        f"S{i}": [
+            StrategySignal("momentum", f"S{i}", 0.20, 0.55, ""),
+            StrategySignal("mean_reversion", f"S{i}", 0.10, 0.55, ""),
+        ]
+        for i in range(2)
+    }
+    marginal = agg.aggregate(marginal_signals, history, {}, last_prices, nav=1_000_000.0)
+    marginal_deployed = sum(marginal.target_weights.values())
+
+    assert strong_deployed > marginal_deployed * 1.5, (
+        f"opportunity mode should deploy more on stronger signals: "
+        f"strong={strong_deployed:.3f} marginal={marginal_deployed:.3f}"
+    )
+
+
+def test_opportunity_mode_can_take_many_positions():
+    """If 12 stocks all clear the quality bar, opportunity mode should take 12,
+    not be capped at the conservative-style 5."""
+    agg = SignalAggregator(PROFILES[RiskProfileName.OPPORTUNITY])
+    history = {f"S{i}": _hist([100 + j for j in range(120)]) for i in range(12)}
+    last_prices = {f"S{i}": 100.0 for i in range(12)}
+    signals = {
+        f"S{i}": [
+            StrategySignal("momentum", f"S{i}", 0.90, 0.85, ""),
+            StrategySignal("mean_reversion", f"S{i}", 0.50, 0.65, ""),
+        ]
+        for i in range(12)
+    }
+    out = agg.aggregate(signals, history, {}, last_prices, nav=1_000_000.0)
+    assert len(out.selected) >= 10, (
+        f"opportunity mode should pick many positions when many are strong, got {len(out.selected)}"
+    )
+
+
 def test_held_position_sold_when_signal_disappears():
     agg = SignalAggregator(PROFILES[RiskProfileName.BALANCED])
     # No signals at all -> any held positions should be sold.

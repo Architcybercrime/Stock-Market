@@ -22,6 +22,7 @@ class RiskProfileName(str, enum.Enum):
     CONSERVATIVE = "conservative"
     BALANCED = "balanced"
     AGGRESSIVE = "aggressive"
+    OPPORTUNITY = "opportunity"   # adaptive — opportunity drives trade count + sizing
 
 
 @dataclass(frozen=True)
@@ -49,7 +50,13 @@ class RiskProfile:
     use_volatility_targeting: bool   # scale by inverse volatility
     vol_target_annual: float         # e.g. 0.15 = target 15% annual vol per position
 
-    description: str
+    # Opportunity-adaptive mode: when True, the aggregator scales target_invested_pct
+    # by aggregate signal quality. Strong-signal days deploy more capital; weak-signal
+    # days deploy less (or nothing). Position count also becomes "up to max_positions"
+    # rather than "fill max_positions even with marginal signals".
+    opportunity_adaptive: bool = False
+
+    description: str = ""
 
     def validate(self) -> None:
         s = self.weight_momentum + self.weight_mean_reversion + self.weight_ml
@@ -119,6 +126,31 @@ PROFILES: dict[RiskProfileName, RiskProfile] = {
             "drawdowns, more trades, more cost drag. Only run this in paper mode "
             "until you have months of evidence it behaves. The 'aggressive' label "
             "is relative — there is no leverage, no shorting."
+        ),
+    ),
+    RiskProfileName.OPPORTUNITY: RiskProfile(
+        name=RiskProfileName.OPPORTUNITY,
+        # target_invested_pct here is the CEILING — actual deployment scales down
+        # from this based on aggregate signal quality.
+        target_invested_pct=0.95,
+        max_positions=15,             # ceiling, not target
+        max_position_pct=0.08,
+        min_position_pct=0.015,
+        weight_momentum=0.45,
+        weight_mean_reversion=0.35,
+        weight_ml=0.20,
+        rebalance_threshold_pct=0.008,
+        min_confidence=0.50,
+        use_volatility_targeting=True,
+        vol_target_annual=0.15,
+        opportunity_adaptive=True,
+        description=(
+            "Opportunity-driven. Holds up to 15 positions only if signals warrant. "
+            "Deployed capital scales 20-95% with aggregate signal quality. Days "
+            "with strong, broad signals will trade 10+ stocks; days with weak or "
+            "conflicting signals will sit mostly in cash. Sizes by conviction "
+            "(score × confidence) so high-conviction names get larger slices. "
+            "This is what the user asked for: 'trade many one day, none the next'."
         ),
     ),
 }

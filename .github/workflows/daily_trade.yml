@@ -31,9 +31,10 @@ on:
       profile:
         description: "Risk profile for this run"
         required: false
-        default: "conservative"
+        default: "opportunity"
         type: choice
         options:
+          - opportunity
           - conservative
           - balanced
           - aggressive
@@ -69,7 +70,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      PROFILE: ${{ github.event.inputs.profile || 'conservative' }}
+      PROFILE: ${{ github.event.inputs.profile || 'opportunity' }}
       BROKER_CHOICE: ${{ github.event.inputs.broker || 'local' }}
       MARKET: ${{ github.event.inputs.market || 'NSE' }}
       # Hard-pinned to paper for this workflow.

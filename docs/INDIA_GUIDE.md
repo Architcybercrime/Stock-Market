@@ -169,6 +169,37 @@ changes already baked in are:
 You don't need to add any secrets to the repo. Just enable Actions and
 trigger a manual run from the Actions tab to start.
 
+## The OPPORTUNITY profile (default for this deployment)
+
+Unlike the static Conservative/Balanced/Aggressive profiles, Opportunity is
+adaptive — it lets the market dictate how much it trades:
+
+| Behavior | How it works |
+|---|---|
+| **Position count** | Caps at 15, but only fills positions whose conviction (score × confidence) clears a quality bar. If only 3 stocks look good, takes 3. If 12 do, takes 12. |
+| **Position sizing** | Each position is sized proportional to its score, NOT equal-weight. A stock with a +0.95 momentum + 0.9 confidence signal gets a larger slice than one with +0.5 / 0.6. |
+| **Capital deployment** | Scales 20-95% of NAV based on aggregate signal quality. Many strong signals -> nearly fully deployed. Few or weak -> mostly cash. |
+| **Days with no trades** | Expected and correct. If the universe is in a chop or the strategies disagree, the daemon stays flat. |
+| **Days with many trades** | Also expected. If a trend kicks in and 10+ stocks register strong momentum, it'll buy them all up to the 15-position ceiling. |
+
+The math, simplified:
+
+```
+effective_invested_pct = max_target
+  * (0.4 + 0.6 × quality_factor)      ← signal strength
+  * (0.5 + 0.5 × count_factor)        ← signal breadth
+
+quality_factor = min(1.0, avg(score × conf) × 2.5)
+count_factor   = min(1.0, n_selected / max_positions)
+```
+
+So a day with 12 strong signals (avg conviction ~0.7) deploys ~95% of NAV.
+A day with 3 marginal signals (avg conviction ~0.3) deploys ~30%.
+A day with no signals stays 100% cash.
+
+This matches the user-requested behavior: "trade 10-20 stocks one day,
+nothing the next, based on the market."
+
 ## Realistic expectations
 
 The [REALISTIC_EXPECTATIONS.md](REALISTIC_EXPECTATIONS.md) numbers apply to

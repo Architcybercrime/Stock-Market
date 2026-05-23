@@ -37,6 +37,15 @@ def test_aggressive_has_higher_ml_weight():
     assert a.weight_ml > c.weight_ml
 
 
+def test_opportunity_profile_is_adaptive():
+    o = PROFILES[RiskProfileName.OPPORTUNITY]
+    assert o.opportunity_adaptive is True
+    assert o.max_positions >= 12, "opportunity ceiling should be >= aggressive"
+    # Non-opportunity profiles are NOT adaptive.
+    for name in [RiskProfileName.CONSERVATIVE, RiskProfileName.BALANCED, RiskProfileName.AGGRESSIVE]:
+        assert PROFILES[name].opportunity_adaptive is False
+
+
 def test_invalid_weights_rejected():
     with pytest.raises(ValueError):
         RiskProfile(
