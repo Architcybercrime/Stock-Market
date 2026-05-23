@@ -7,6 +7,12 @@ name: CI
 on:
   push:
     branches: [main]
+    # State-file updates from the snapshot/trade workflows don't need a full
+    # CI run; deploy_pages picks them up separately. Saves Actions minutes.
+    paths-ignore:
+      - "data/**"
+      - "docs/**"
+      - "*.md"
   pull_request:
 
 concurrency:

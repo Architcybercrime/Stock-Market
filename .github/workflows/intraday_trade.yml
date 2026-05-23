@@ -106,7 +106,7 @@ jobs:
           if git diff --cached --quiet; then
             echo "no state changes to commit"
           else
-            git commit -m "chore(intraday): $TIMEFRAME tick $(date -u +%Y-%m-%dT%H:%M:%SZ) [skip ci]"
+            git commit -m "chore(intraday): $TIMEFRAME tick $(date -u +%Y-%m-%dT%H:%M:%SZ)"
             git push
           fi
 
