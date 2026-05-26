@@ -1,0 +1,70 @@
+name: Walk-forward backtest
+
+# Weekly OOS-style backtest on fresh yfinance data. Writes a metrics row to
+# data/backtest_history.json so the dashboard can compare live equity to a
+# rules-baseline benchmark. Runs Saturday morning IST when markets are
+# closed and yfinance is least loaded.
+
+on:
+  schedule:
+    - cron: "30 4 * * 6"   # Saturday 04:30 UTC = 10:00 IST
+  workflow_dispatch:
+    inputs:
+      window_days:
+        description: "Backtest window in days"
+        required: false
+        default: "180"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: walk-forward
+  cancel-in-progress: false
+
+jobs:
+  backtest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      WINDOW: ${{ github.event.inputs.window_days || '180' }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 1
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+
+      - name: Install deps
+        run: pip install yfinance pandas numpy
+
+      - name: Run walk-forward
+        run: python scripts/walk_forward.py --window-days "$WINDOW" --out data/backtest_history.json
+
+      - name: Commit history
+        run: |
+          git config user.name  "stock-market-bot"
+          git config user.email "stock-market-bot@users.noreply.github.com"
+          git add data/backtest_history.json
+          if git diff --cached --quiet; then
+            echo "no walk-forward changes"
+          else
+            git commit -m "chore(backtest): walk-forward $(date -u +%Y-%m-%d)"
+            git push
+          fi
+
+      - name: Notify
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            python scripts/notify.py --kind raw --message "📐 Walk-forward done: see data/backtest_history.json"
+          else
+            python scripts/notify.py --kind error --message "walk-forward failed: GH run ${{ github.run_id }}"
+          fi

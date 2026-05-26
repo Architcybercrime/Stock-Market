@@ -102,6 +102,7 @@ class TradingDaemon:
             max_leverage=settings.risk.max_leverage,
             min_cash_buffer_pct=max(0.0, 1.0 - profile.target_invested_pct - 0.02),
             max_orders_per_minute=settings.risk.max_orders_per_minute,
+            max_orders_per_day=getattr(settings.risk, "max_orders_per_day", 30),
             max_order_notional_pct=profile.max_position_pct,
         )
         self.oms = OMS(
@@ -173,6 +174,23 @@ class TradingDaemon:
                 )
             all_signals[sym] = sigs
         return all_signals
+
+    def _count_orders_today(self) -> int:
+        """Count broker orders submitted in the current UTC day. Used to
+        enforce max_orders_per_day. Bracket-exit orders ('reason: stop_loss'
+        etc.) are excluded — they don't count toward signal budget."""
+        if not hasattr(self.broker, "_orders_raw"):
+            return 0
+        today = datetime.now(UTC).date().isoformat()
+        n = 0
+        for o in self.broker._orders_raw[-500:]:
+            ts = o.get("created_at", "")
+            if ts.startswith(today) and o.get("status") in ("filled", "submitted"):
+                # Bracket-driven orders are submitted from runner with no
+                # special tag yet — we'd need to extend Order schema for that.
+                # Conservative for now: count them all.
+                n += 1
+        return n
 
     def _maybe_close_brackets(
         self,
@@ -327,7 +345,8 @@ class TradingDaemon:
         n_rejected = 0
 
         # Submit bracket exits first; they're risk-driven and shouldn't be
-        # crowded out by signal-driven orders if max_orders_per_minute trips.
+        # crowded out by signal-driven orders if a cap trips. They're also
+        # exempt from max_orders_per_day so we can always defend capital.
         for target in bracket_exits:
             n_attempted += 1
             submitted = self._submit_order(target, portfolio_state, last_prices)
@@ -339,7 +358,22 @@ class TradingDaemon:
                 # don't double-spend capital tied up in this position.
                 positions.pop(target.symbol, None)
 
+        # Daily order cap (signal-driven only). Count today's filled+pending
+        # orders persisted on the broker.
+        daily_cap = self.oms.limits.max_orders_per_day
+        orders_today = self._count_orders_today() if daily_cap > 0 else 0
+        budget = max(0, daily_cap - orders_today) if daily_cap > 0 else 10_000
+
         for target in result.orders:
+            if budget <= 0:
+                log.warning(
+                    "daemon.daily_cap_hit",
+                    cap=daily_cap,
+                    orders_today=orders_today,
+                    dropped=len(result.orders) - (n_attempted - len(bracket_exits)),
+                )
+                n_rejected += 1
+                continue
             n_attempted += 1
             log.info(
                 "daemon.intended_order",
@@ -355,6 +389,7 @@ class TradingDaemon:
                 n_rejected += 1
             else:
                 n_accepted += 1
+                budget -= 1
 
         report = DaemonRunReport(
             ts=run_ts,

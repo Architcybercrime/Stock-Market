@@ -142,6 +142,11 @@ jobs:
             python scripts/show_portfolio.py --recent 10 --currency USD
           fi
 
+      - name: Append trade journal
+        if: always()
+        continue-on-error: true
+        run: python scripts/journal.py --state data/paper_state.json --journal-dir journal
+
       - name: Send Telegram notification
         if: always()
         continue-on-error: true
@@ -153,13 +158,13 @@ jobs:
           fi
 
       - name: Commit updated state back to repo
-        # Only attempts a commit if paper_state.json actually changed.
+        # Only attempts a commit if paper_state.json or journal actually changed.
         # No-op when using Alpaca (no local state file is touched).
         if: ${{ always() && github.event_name != 'pull_request' }}
         run: |
           git config user.name  "stock-market-bot"
           git config user.email "stock-market-bot@users.noreply.github.com"
-          git add -A data/paper_state.json data/last_run.log 2>/dev/null || true
+          git add -A data/paper_state.json data/last_run.log journal/ 2>/dev/null || true
           if git diff --cached --quiet; then
             echo "no state changes to commit"
           else
