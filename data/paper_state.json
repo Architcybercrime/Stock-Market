@@ -1,18 +1,16 @@
 {
   "schema_version": 1,
-  "cash": "849483.872429962562004",
+  "cash": "860811.520214339877838",
   "initial_capital": "1000000.00",
   "positions": {
-    "AXISBANK.NS": "24",
-    "NESTLEIND.NS": "42",
-    "SBIN.NS": "63"
+    "SBIN.NS": "63",
+    "DRREDDY.NS": "60"
   },
   "avg_costs": {
-    "AXISBANK.NS": "1285.528564416504",
-    "NESTLEIND.NS": "1423.2422855834961",
-    "SBIN.NS": "949.2949322082519"
+    "SBIN.NS": "949.2949322082519",
+    "DRREDDY.NS": "1328.03279"
   },
-  "realized_pnl": "0",
+  "realized_pnl": "419.413216985114034",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -64,6 +62,57 @@
       "fee": "32.47419111358917",
       "reject_reason": null,
       "created_at": "2026-05-23T13:14:57.717106+00:00"
+    },
+    {
+      "id": "44cb7d04-b276-4c18-9b2b-9f6c11f35e50",
+      "client_order_id": "sm-9d66efcfd19a",
+      "strategy": "daemon",
+      "symbol": "DRREDDY.NS",
+      "side": "buy",
+      "qty": "60",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "60",
+      "avg_fill_price": "1328.03279",
+      "fee": "38.6595731107304",
+      "reject_reason": null,
+      "created_at": "2026-05-26T13:39:29.491812+00:00"
+    },
+    {
+      "id": "724415fb-4238-4760-88bd-e573462e5be2",
+      "client_order_id": "sm-13ae92493b12",
+      "strategy": "daemon",
+      "symbol": "NESTLEIND.NS",
+      "side": "sell",
+      "qty": "42",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "42",
+      "avg_fill_price": "1428.45714",
+      "fee": "83.57307345204049",
+      "reject_reason": null,
+      "created_at": "2026-05-26T13:39:29.495032+00:00"
+    },
+    {
+      "id": "81f107cd-ed72-449b-a564-3f2cb69988a4",
+      "client_order_id": "sm-9a64525ce8d0",
+      "strategy": "daemon",
+      "symbol": "AXISBANK.NS",
+      "side": "sell",
+      "qty": "24",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "24",
+      "avg_fill_price": "1299.17007",
+      "fee": "43.433729059913276",
+      "reject_reason": null,
+      "created_at": "2026-05-26T13:39:29.497821+00:00"
     }
   ],
   "fills": [
@@ -99,6 +148,39 @@
       "fee": "32.47419111358917",
       "venue": "local_paper",
       "ts": "2026-05-23T13:14:57.865199+00:00"
+    },
+    {
+      "id": "57164d0c-fefc-40c5-bbb9-54430ee7b6ac",
+      "order_id": "44cb7d04-b276-4c18-9b2b-9f6c11f35e50",
+      "symbol": "DRREDDY.NS",
+      "side": "buy",
+      "qty": "60",
+      "price": "1328.03279",
+      "fee": "38.6595731107304",
+      "venue": "local_paper",
+      "ts": "2026-05-26T13:39:29.492584+00:00"
+    },
+    {
+      "id": "cc34b166-ae4f-4484-a1f4-dc7963375eea",
+      "order_id": "724415fb-4238-4760-88bd-e573462e5be2",
+      "symbol": "NESTLEIND.NS",
+      "side": "sell",
+      "qty": "42",
+      "price": "1428.45714",
+      "fee": "83.57307345204049",
+      "venue": "local_paper",
+      "ts": "2026-05-26T13:39:29.495789+00:00"
+    },
+    {
+      "id": "6b24e07e-9cb9-45fa-8dea-6d636293ff4e",
+      "order_id": "81f107cd-ed72-449b-a564-3f2cb69988a4",
+      "symbol": "AXISBANK.NS",
+      "side": "sell",
+      "qty": "24",
+      "price": "1299.17007",
+      "fee": "43.433729059913276",
+      "venue": "local_paper",
+      "ts": "2026-05-26T13:39:29.498462+00:00"
     }
   ],
   "equity_history": [
@@ -149,15 +231,19 @@
     [
       "2026-05-26T05:55:35.562785+00:00",
       "1001616.276421661777604"
+    ],
+    [
+      "2026-05-26T13:39:29.493933+00:00",
+      "1001637.1454568518"
+    ],
+    [
+      "2026-05-26T13:39:29.497308+00:00",
+      "1001547.5722633998"
+    ],
+    [
+      "2026-05-26T13:39:29.499278+00:00",
+      "1001501.0202143398"
     ]
   ],
-  "updated_at": "2026-05-23T13:14:58.413832+00:00",
-  "last_prices": {
-    "AXISBANK.NS": 1304.800048828125,
-    "NESTLEIND.NS": 1421.300048828125,
-    "SBIN.NS": 970.2000122070312
-  },
-  "mark_to_market_equity": 1001616.2764216617,
-  "currency": "INR",
-  "snapshot_at": "2026-05-26T05:55:35.562785+00:00"
+  "updated_at": "2026-05-26T13:39:29.499289+00:00"
 }
