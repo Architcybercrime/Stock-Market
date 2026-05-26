@@ -37,6 +37,7 @@ from services.daemon.strategies import (
 from services.execution.brokers.base import Broker
 from services.execution.oms import OMS
 from services.ingestion.sources.base import DataSource
+from services.risk.brackets import check_brackets
 from services.risk.checks import PortfolioState
 from services.risk.circuit_breaker import CircuitBreaker
 from services.risk.kill_switch import KillSwitch
@@ -173,6 +174,40 @@ class TradingDaemon:
             all_signals[sym] = sigs
         return all_signals
 
+    def _maybe_close_brackets(
+        self,
+        positions: dict[str, float],
+        last_prices: dict[str, float],
+    ) -> list:
+        """Return SELL TargetOrders for positions breaching SL/TP/trailing.
+        Reads avg_costs straight from the broker so we don't double-trade
+        a name on the same cycle (entry + stop-out in one go)."""
+        from services.backtest.engine import TargetOrder
+
+        avg_costs = {}
+        if hasattr(self.broker, "avg_costs"):
+            avg_costs = {s: float(c) for s, c in self.broker.avg_costs.items()}
+
+        exits = check_brackets(
+            positions=positions,
+            avg_costs=avg_costs,
+            last_prices=last_prices,
+            stop_loss_pct=self.profile.stop_loss_pct,
+            take_profit_pct=self.profile.take_profit_pct,
+            trailing_stop_pct=self.profile.trailing_stop_pct,
+        )
+        orders = []
+        for ex in exits:
+            log.info(
+                "daemon.bracket_exit",
+                symbol=ex.symbol,
+                qty=ex.qty,
+                reason=ex.reason,
+                pnl_pct=round(ex.pnl_pct * 100, 2),
+            )
+            orders.append(TargetOrder(symbol=ex.symbol, side="sell", qty=ex.qty))
+        return orders
+
     def _submit_order(
         self,
         target_order,
@@ -265,6 +300,11 @@ class TradingDaemon:
             if sym not in last_prices:
                 log.warning("daemon.position_without_data", symbol=sym)
 
+        # Bracket exits: stop-loss / take-profit / trailing. Run before signals
+        # so capital is freed for new opportunities and so we don't double-trade
+        # a name (e.g. signal wants to add to a position we're stopping out).
+        bracket_exits = self._maybe_close_brackets(positions, last_prices)
+
         result = self.aggregator.aggregate(
             signals_by_symbol=signals_by_symbol,
             price_history=histories,
@@ -285,6 +325,20 @@ class TradingDaemon:
         n_attempted = 0
         n_accepted = 0
         n_rejected = 0
+
+        # Submit bracket exits first; they're risk-driven and shouldn't be
+        # crowded out by signal-driven orders if max_orders_per_minute trips.
+        for target in bracket_exits:
+            n_attempted += 1
+            submitted = self._submit_order(target, portfolio_state, last_prices)
+            if submitted is None or submitted.status.value == "rejected":
+                n_rejected += 1
+            else:
+                n_accepted += 1
+                # Update local view so the aggregator's remaining orders
+                # don't double-spend capital tied up in this position.
+                positions.pop(target.symbol, None)
+
         for target in result.orders:
             n_attempted += 1
             log.info(

@@ -1,0 +1,33 @@
+name: Heartbeat
+
+# Alarms if data/paper_state.json hasn't been updated in >30h. The snapshot
+# refresher runs every ~12h, so 30h covers one missed run plus buffer.
+#
+# Cheap (no Python deps install, just a quick read + Telegram POST), runs
+# once a day at 13:00 UTC = 18:30 IST — after the second snapshot of the
+# day was supposed to fire.
+
+on:
+  schedule:
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: read
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Check state freshness
+        run: python scripts/heartbeat.py --max-hours 30

@@ -8,6 +8,7 @@ use it as the source of truth for live trading.
 
 from __future__ import annotations
 
+import time
 from datetime import datetime
 
 import pandas as pd
@@ -17,6 +18,11 @@ from libs.common.time_utils import to_utc
 from services.ingestion.sources.base import DataSource
 
 log = get_logger(__name__)
+
+# Yahoo's free endpoints rate-limit by IP; shared CI runner IPs trip this
+# regularly. Retries fix most transient failures.
+_YF_MAX_ATTEMPTS = 4
+_YF_BACKOFF_BASE_SEC = 1.5
 
 
 class YFinanceSource(DataSource):
@@ -55,19 +61,31 @@ class YFinanceSource(DataSource):
             end=end.isoformat(),
             interval=yf_interval,
         )
-        df = yf.download(
-            tickers=symbol,
-            start=start,
-            end=end,
-            interval=yf_interval,
-            auto_adjust=self.auto_adjust,
-            actions=False,
-            progress=False,
-            threads=False,
-        )
+
+        df: pd.DataFrame | None = None
+        last_err: str | None = None
+        for attempt in range(1, _YF_MAX_ATTEMPTS + 1):
+            try:
+                df = yf.download(
+                    tickers=symbol,
+                    start=start,
+                    end=end,
+                    interval=yf_interval,
+                    auto_adjust=self.auto_adjust,
+                    actions=False,
+                    progress=False,
+                    threads=False,
+                )
+                if df is not None and not df.empty:
+                    break
+                last_err = "empty frame"
+            except Exception as exc:
+                last_err = str(exc)
+            if attempt < _YF_MAX_ATTEMPTS:
+                time.sleep(_YF_BACKOFF_BASE_SEC * (2 ** (attempt - 1)))
 
         if df is None or df.empty:
-            log.warning("yfinance.empty", symbol=symbol)
+            log.warning("yfinance.empty", symbol=symbol, last_err=last_err, attempts=_YF_MAX_ATTEMPTS)
             return self._empty_frame()
 
         # yfinance returns a MultiIndex columns frame when multiple tickers

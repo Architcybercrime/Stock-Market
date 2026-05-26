@@ -25,6 +25,9 @@ jobs:
     name: Refresh marks
     runs-on: ubuntu-latest
     timeout-minutes: 8
+    env:
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -39,8 +42,45 @@ jobs:
       - name: Install minimal deps
         run: pip install yfinance pandas
 
+      - name: Capture prior NAV
+        id: prior
+        run: |
+          if [ -f data/paper_state.json ]; then
+            python -c "import json; d=json.load(open('data/paper_state.json')); print('nav=' + str(float(d.get('mark_to_market_equity') or 0)))" >> "$GITHUB_OUTPUT"
+          else
+            echo "nav=0" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Refresh snapshot
         run: python scripts/refresh_snapshot.py
+
+      - name: Build commit message with NAV diff
+        id: msg
+        run: |
+          python - <<'EOF' >> "$GITHUB_OUTPUT"
+          import json, os
+          prior = float("${{ steps.prior.outputs.nav }}" or 0)
+          try:
+              d = json.load(open("data/paper_state.json"))
+          except Exception:
+              print("subject=chore(snapshot): mark-to-market refresh (no state)")
+              raise SystemExit(0)
+          mtm = float(d.get("mark_to_market_equity") or 0)
+          cur = d.get("currency", "INR")
+          sym = "INR" if cur == "INR" else "USD"
+          delta_pct = ((mtm - prior) / prior * 100) if prior > 0 else 0.0
+          # NSEI change over the last sample for context.
+          bh = d.get("benchmark_history") or []
+          bench_str = ""
+          if len(bh) >= 2:
+              try:
+                  b_now = float(bh[-1][1]); b_prev = float(bh[-2][1])
+                  if b_prev > 0:
+                      bench_str = f" | NSEI {((b_now/b_prev-1)*100):+.2f}%"
+              except Exception:
+                  pass
+          print(f"subject=chore(snapshot): NAV {sym} {mtm:,.0f} ({delta_pct:+.2f}%){bench_str}")
+          EOF
 
       - name: Commit refreshed state
         run: |
@@ -57,6 +97,16 @@ jobs:
           else
             # No [skip ci] — we WANT deploy_pages.yml to fire on this push so
             # the dashboard picks up the new state. ci.yml ignores data/** changes.
-            git commit -m "chore(snapshot): mark-to-market refresh $(date -u +%Y-%m-%dT%H:%M:%SZ)"
+            git commit -m "${{ steps.msg.outputs.subject }}"
             git push
+          fi
+
+      - name: Send Telegram snapshot notification
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            python scripts/notify.py --kind snapshot --state data/paper_state.json
+          else
+            python scripts/notify.py --kind error --message "snapshot workflow failed: see GH Actions run ${{ github.run_id }}"
           fi

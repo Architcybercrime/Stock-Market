@@ -20,9 +20,17 @@ from __future__ import annotations
 import argparse
 import json
 import sys
+import time
 from datetime import UTC, datetime, timedelta
 from decimal import Decimal
 from pathlib import Path
+
+# yfinance hits Yahoo's free endpoints, which rate-limit by IP. GitHub Actions
+# runners share IPs across many users so we see periodic 429s / empty frames.
+# A short exponential backoff catches the vast majority without slowing the
+# happy path.
+_YF_MAX_ATTEMPTS = 4
+_YF_BACKOFF_BASE_SEC = 1.5
 
 
 def _detect_currency(positions: dict[str, str]) -> str:
@@ -36,24 +44,29 @@ def _detect_currency(positions: dict[str, str]) -> str:
 
 
 def _latest_close(symbol: str) -> float | None:
-    """Pull the most recent daily close from yfinance. None on failure."""
+    """Pull the most recent daily close from yfinance with retry/backoff.
+    Returns None only after all attempts fail or yield empty frames."""
     try:
         import yfinance as yf
     except ImportError:
         print("yfinance not installed; cannot refresh snapshot", file=sys.stderr)
         return None
 
-    try:
-        # Use Ticker.history() — more stable than yf.download() for single symbols
-        # and gives us better empty-result detection.
-        ticker = yf.Ticker(symbol)
-        hist = ticker.history(period="5d", auto_adjust=True)
-        if hist is None or hist.empty:
-            return None
-        return float(hist["Close"].iloc[-1])
-    except Exception as exc:
-        print(f"  warn: {symbol} fetch failed: {exc}", file=sys.stderr)
-        return None
+    last_err: str | None = None
+    for attempt in range(1, _YF_MAX_ATTEMPTS + 1):
+        try:
+            # Ticker.history() — more stable than yf.download() for single symbols.
+            ticker = yf.Ticker(symbol)
+            hist = ticker.history(period="5d", auto_adjust=True)
+            if hist is not None and not hist.empty:
+                return float(hist["Close"].iloc[-1])
+            last_err = "empty frame"
+        except Exception as exc:
+            last_err = str(exc)
+        if attempt < _YF_MAX_ATTEMPTS:
+            time.sleep(_YF_BACKOFF_BASE_SEC * (2 ** (attempt - 1)))
+    print(f"  warn: {symbol} fetch failed after {_YF_MAX_ATTEMPTS} attempts: {last_err}", file=sys.stderr)
+    return None
 
 
 BENCHMARK_SYMBOL = "^NSEI"   # Nifty 50 index; "^GSPC" for S&P 500

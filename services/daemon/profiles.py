@@ -56,6 +56,15 @@ class RiskProfile:
     # rather than "fill max_positions even with marginal signals".
     opportunity_adaptive: bool = False
 
+    # Per-position protective brackets. Checked at the start of each daemon cycle
+    # against the latest close. 0 disables the side.
+    #   stop_loss_pct=0.07  → exit if MTM <= -7% from avg_cost
+    #   take_profit_pct=0.20 → exit if MTM >= +20% from avg_cost
+    # Trailing stop is on the position's high-water mark seen during refresh.
+    stop_loss_pct: float = 0.07
+    take_profit_pct: float = 0.20
+    trailing_stop_pct: float = 0.0   # 0 disables trailing
+
     description: str = ""
 
     def validate(self) -> None:
