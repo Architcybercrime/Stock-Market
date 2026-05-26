@@ -111,11 +111,18 @@ def _build_broker_and_source(broker_choice: str, market: str, initial_cash: floa
         source = AlpacaSource()
         return broker, source, f"alpaca (paper={broker.is_paper})"
 
-    # LocalPaperBroker + yfinance for both India and US.
+    # LocalPaperBroker + chained free data sources.
+    # India: NSE bhavcopy (official, no rate limits) → yfinance fallback.
+    # US:    yfinance only (bhavcopy is NSE-specific).
     from services.execution.brokers.local_paper import LocalPaperBroker
+    from services.ingestion.sources.chained import ChainedSource
     from services.ingestion.sources.yfinance_source import YFinanceSource
 
-    source = YFinanceSource()
+    if is_india:
+        from services.ingestion.sources.nse_bhavcopy import NSEBhavcopySource
+        source = ChainedSource([NSEBhavcopySource(), YFinanceSource()])
+    else:
+        source = YFinanceSource()
     state_path = Path(settings.data_root) / "paper_state.json"
 
     cost_model = IndianEquityCostModel() if is_india else CostModel()

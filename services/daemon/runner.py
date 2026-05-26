@@ -42,6 +42,7 @@ from services.risk.checks import PortfolioState
 from services.risk.circuit_breaker import CircuitBreaker
 from services.risk.kill_switch import KillSwitch
 from services.risk.limits import RiskLimitsConfig
+from services.risk.sectors import build_sector_notional, build_symbol_to_sector
 
 log = get_logger(__name__)
 
@@ -333,11 +334,17 @@ class TradingDaemon:
 
         # Build PortfolioState for risk checks.
         positions_notional = {sym: qty * last_prices.get(sym, 0.0) for sym, qty in positions.items()}
+        sector_notional = build_sector_notional(positions_notional)
         portfolio_state = PortfolioState(
             nav=equity,
             cash=cash,
             positions_notional=positions_notional,
-            sector_notional={},  # not tracked yet
+            sector_notional=sector_notional,
+            symbol_to_sector=build_symbol_to_sector(list(self.universe)),
+        )
+        log.info(
+            "daemon.sector_exposure",
+            sectors={s: round(n / equity * 100, 1) for s, n in sector_notional.items()} if equity > 0 else {},
         )
 
         n_attempted = 0
