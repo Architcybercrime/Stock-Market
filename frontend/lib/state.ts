@@ -42,6 +42,8 @@ export interface PaperState {
   orders: PaperOrder[];
   fills: PaperFill[];
   equity_history: [string, string][];
+  benchmark_symbol?: string;
+  benchmark_history?: [string, string][];
   last_prices: Record<string, number>;
   mark_to_market_equity: number | null;
   currency: Currency;
@@ -74,6 +76,8 @@ export interface Snapshot {
   fills: PaperFill[];
   orders: PaperOrder[];
   equityHistory: { ts: string; value: number }[];
+  benchmarkSymbol: string;
+  benchmarkHistory: { ts: string; value: number }[];
   updatedAt: string;
   snapshotAt: string | null;
 }
@@ -141,6 +145,10 @@ export function deriveSnapshot(raw: PaperState): Snapshot {
     ts,
     value: Number(value),
   }));
+  const benchmarkHistory = (raw.benchmark_history || []).map(([ts, value]) => ({
+    ts,
+    value: Number(value),
+  }));
 
   return {
     raw,
@@ -155,6 +163,8 @@ export function deriveSnapshot(raw: PaperState): Snapshot {
     fills: raw.fills || [],
     orders: raw.orders || [],
     equityHistory,
+    benchmarkSymbol: raw.benchmark_symbol || "^NSEI",
+    benchmarkHistory,
     updatedAt: raw.updated_at,
     snapshotAt: raw.snapshot_at ?? null,
   };
@@ -173,6 +183,8 @@ export function placeholderSnapshot(): Snapshot {
     orders: [],
     fills: [],
     equity_history: [],
+    benchmark_symbol: "^NSEI",
+    benchmark_history: [],
     last_prices: {},
     mark_to_market_equity: null,
     currency: "INR",

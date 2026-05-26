@@ -56,6 +56,9 @@ def _latest_close(symbol: str) -> float | None:
         return None
 
 
+BENCHMARK_SYMBOL = "^NSEI"   # Nifty 50 index; "^GSPC" for S&P 500
+
+
 def _initial_state(currency: str = "INR", initial_cash: float = 1_000_000.0) -> dict:
     """Bootstrap a fresh state file. Used on the very first run before any
     daemon has executed, so the dashboard has something to render."""
@@ -70,6 +73,8 @@ def _initial_state(currency: str = "INR", initial_cash: float = 1_000_000.0) -> 
         "orders": [],
         "fills": [],
         "equity_history": [[now_iso, f"{initial_cash:.2f}"]],
+        "benchmark_symbol": BENCHMARK_SYMBOL,
+        "benchmark_history": [],
         "last_prices": {},
         "mark_to_market_equity": float(initial_cash),
         "currency": currency,
@@ -139,8 +144,22 @@ def refresh(state_path: Path) -> int:
     eq_history.append([now_iso, str(mtm)])
     eq_history = eq_history[-2000:]
 
+    # Fetch the benchmark too so the dashboard can show "you vs market".
+    benchmark_symbol = data.get("benchmark_symbol") or BENCHMARK_SYMBOL
+    benchmark_history = data.get("benchmark_history") or []
+    try:
+        bench_px = _latest_close(benchmark_symbol)
+        if bench_px is not None:
+            benchmark_history.append([now_iso, f"{bench_px:.4f}"])
+            benchmark_history = benchmark_history[-2000:]
+            print(f"  benchmark {benchmark_symbol}: {bench_px:.2f}")
+    except Exception as exc:
+        print(f"  warn: benchmark fetch failed: {exc}", file=sys.stderr)
+
     data["last_prices"] = last_prices
     data["equity_history"] = eq_history
+    data["benchmark_symbol"] = benchmark_symbol
+    data["benchmark_history"] = benchmark_history
     data["mark_to_market_equity"] = float(mtm)
     data["currency"] = currency
     data["snapshot_at"] = now_iso

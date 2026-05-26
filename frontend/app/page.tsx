@@ -6,8 +6,10 @@ import { fetchState, placeholderSnapshot, type Snapshot } from "@/lib/state";
 import { Topbar } from "@/components/Topbar";
 import { HeroCard } from "@/components/HeroCard";
 import { StatsRow } from "@/components/StatsRow";
+import { MetricsPanel } from "@/components/MetricsPanel";
 import { AllocationDonut } from "@/components/AllocationDonut";
 import { EquityCurve } from "@/components/EquityCurve";
+import { BenchmarkChart } from "@/components/BenchmarkChart";
 import { PositionGrid } from "@/components/PositionGrid";
 import { RecentTrades } from "@/components/RecentTrades";
 
@@ -75,11 +77,15 @@ export default function Dashboard() {
 
       <StatsRow snap={snap} />
 
+      <MetricsPanel snap={snap} />
+
+      <section className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <EquityCurve snap={snap} />
+        <BenchmarkChart snap={snap} />
+      </section>
+
       <section className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-        <div className="lg:col-span-2">
-          <EquityCurve snap={snap} />
-        </div>
-        <div>
+        <div className="lg:col-span-3">
           <AllocationDonut snap={snap} />
         </div>
       </section>

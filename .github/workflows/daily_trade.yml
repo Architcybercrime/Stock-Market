@@ -89,6 +89,8 @@ jobs:
       ALPACA_API_KEY: ${{ secrets.ALPACA_API_KEY }}
       ALPACA_API_SECRET: ${{ secrets.ALPACA_API_SECRET }}
       JWT_SECRET: ${{ secrets.JWT_SECRET || 'github-actions-not-used-by-daemon' }}
+      TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
 
     steps:
       - name: Checkout
@@ -138,6 +140,16 @@ jobs:
             python scripts/show_portfolio.py --recent 10 --currency INR
           else
             python scripts/show_portfolio.py --recent 10 --currency USD
+          fi
+
+      - name: Send Telegram notification
+        if: always()
+        continue-on-error: true
+        run: |
+          if [ "${{ job.status }}" = "success" ]; then
+            python scripts/notify.py --kind trade-cycle --state data/paper_state.json
+          else
+            python scripts/notify.py --kind error --message "trade workflow failed: see GH Actions run ${{ github.run_id }}"
           fi
 
       - name: Commit updated state back to repo
