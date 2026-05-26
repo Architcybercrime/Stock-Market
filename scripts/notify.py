@@ -65,14 +65,37 @@ def _format_trade_cycle(state: dict) -> str:
     sym = "₹" if currency == "INR" else "$"
     cash = float(state.get("cash", "0") or 0)
     initial = float(state.get("initial_capital", "1") or 1)
-    mtm = float(state.get("mark_to_market_equity") or cash)
     positions = state.get("positions") or {}
     avg_costs = state.get("avg_costs") or {}
     last_prices = state.get("last_prices") or {}
     fills = state.get("fills") or []
 
-    # Compute today's NAV change from equity_history.
+    # NAV resolution order:
+    # 1. The last equity_history sample — always written by both the daemon
+    #    (post-fill) and the snapshot refresher, so it's the freshest truth.
+    # 2. The mark_to_market_equity field — only written by the snapshot
+    #    refresher; stale right after a trade cycle, missing on first run.
+    # 3. cash + qty*price valuation as a last resort.
+    # 4. Cash alone — wrong, but a deterministic floor.
+    # Previously we jumped to step 4 when (2) was missing, which made a fresh
+    # daemon-only state look like a giant loss (it just hadn't been snapshotted
+    # yet).
     eq = state.get("equity_history") or []
+    mtm = None
+    if eq:
+        try:
+            mtm = float(eq[-1][1])
+        except (ValueError, IndexError, TypeError):
+            mtm = None
+    if mtm is None:
+        mtm = state.get("mark_to_market_equity")
+        mtm = float(mtm) if mtm is not None else None
+    if mtm is None:
+        valuation = cash
+        for s, q in positions.items():
+            px = last_prices.get(s) or float(avg_costs.get(s) or 0)
+            valuation += float(q) * float(px)
+        mtm = valuation if valuation > 0 else cash
     today_change = 0.0
     if len(eq) >= 2:
         try:
@@ -145,7 +168,16 @@ def main(argv: list[str] | None = None) -> int:
         state = json.loads(path.read_text())
         currency = state.get("currency", "INR")
         sym = "₹" if currency == "INR" else "$"
-        mtm = float(state.get("mark_to_market_equity") or 0)
+        # Same NAV resolution as trade-cycle: prefer the latest equity_history
+        # sample over the mark_to_market_equity field.
+        eq = state.get("equity_history") or []
+        if eq:
+            try:
+                mtm = float(eq[-1][1])
+            except (ValueError, IndexError, TypeError):
+                mtm = float(state.get("mark_to_market_equity") or 0)
+        else:
+            mtm = float(state.get("mark_to_market_equity") or 0)
         return _send(f"📈 Snapshot refresh: NAV `{sym}{mtm:,.2f}`")
 
     if args.kind == "error":
