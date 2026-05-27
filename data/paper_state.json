@@ -1,14 +1,16 @@
 {
   "schema_version": 1,
-  "cash": "860811.520214339877838",
+  "cash": "780742.192490635146878",
   "initial_capital": "1000000.00",
   "positions": {
     "SBIN.NS": "63",
-    "DRREDDY.NS": "60"
+    "DRREDDY.NS": "60",
+    "ONGC.NS": "292"
   },
   "avg_costs": {
     "SBIN.NS": "949.2949322082519",
-    "DRREDDY.NS": "1328.03279"
+    "DRREDDY.NS": "1328.03279",
+    "ONGC.NS": "274.077405"
   },
   "realized_pnl": "419.413216985114034",
   "orders": [
@@ -113,6 +115,23 @@
       "fee": "43.433729059913276",
       "reject_reason": null,
       "created_at": "2026-05-26T13:39:29.497821+00:00"
+    },
+    {
+      "id": "2776ba49-73ae-4c9a-a541-8b0de1e8c7c5",
+      "client_order_id": "sm-180e15fe0999",
+      "strategy": "daemon",
+      "symbol": "ONGC.NS",
+      "side": "buy",
+      "qty": "292",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "292",
+      "avg_fill_price": "274.077405",
+      "fee": "38.72546370473096",
+      "reject_reason": null,
+      "created_at": "2026-05-27T14:04:20.538640+00:00"
     }
   ],
   "fills": [
@@ -181,6 +200,17 @@
       "fee": "43.433729059913276",
       "venue": "local_paper",
       "ts": "2026-05-26T13:39:29.498462+00:00"
+    },
+    {
+      "id": "dfb270ba-2313-4a7b-af84-4070294c25ba",
+      "order_id": "2776ba49-73ae-4c9a-a541-8b0de1e8c7c5",
+      "symbol": "ONGC.NS",
+      "side": "buy",
+      "qty": "292",
+      "price": "274.077405",
+      "fee": "38.72546370473096",
+      "venue": "local_paper",
+      "ts": "2026-05-27T14:04:20.539363+00:00"
     }
   ],
   "equity_history": [
@@ -251,27 +281,11 @@
     [
       "2026-05-27T06:06:07.729588+00:00",
       "1001535.821605941440338"
-    ]
-  ],
-  "updated_at": "2026-05-26T13:39:29.499289+00:00",
-  "last_prices": {
-    "AXISBANK.NS": 1311.4000244140625,
-    "DRREDDY.NS": 1326.800048828125,
-    "NESTLEIND.NS": 1436.0999755859375,
-    "SBIN.NS": 970.0999755859375
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-05-26T14:09:49.409558+00:00",
-      "23913.6992"
     ],
     [
-      "2026-05-27T06:06:07.729588+00:00",
-      "23964.1504"
+      "2026-05-27T14:04:20.540583+00:00",
+      "1000876.1924906351"
     ]
   ],
-  "mark_to_market_equity": 1001535.8216059414,
-  "currency": "INR",
-  "snapshot_at": "2026-05-27T06:06:07.729588+00:00"
+  "updated_at": "2026-05-27T14:04:20.540598+00:00"
 }
