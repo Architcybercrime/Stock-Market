@@ -1,20 +1,22 @@
 {
   "schema_version": 1,
-  "cash": "622743.961813453452198",
+  "cash": "524270.562824212483748",
   "initial_capital": "1000000.00",
   "positions": {
-    "SBIN.NS": "63",
+    "SBIN.NS": "83",
     "DRREDDY.NS": "60",
     "ONGC.NS": "292",
     "TATASTEEL.NS": "366",
-    "SUNPHARMA.NS": "44"
+    "SUNPHARMA.NS": "44",
+    "NESTLEIND.NS": "57"
   },
   "avg_costs": {
-    "SBIN.NS": "949.2949322082519",
+    "SBIN.NS": "950.4757702303598759036144578",
     "DRREDDY.NS": "1328.03279",
     "ONGC.NS": "274.077405",
     "TATASTEEL.NS": "214.72146999999998",
-    "SUNPHARMA.NS": "1799.37992"
+    "SUNPHARMA.NS": "1799.37992",
+    "NESTLEIND.NS": "1391.9391799999999"
   },
   "realized_pnl": "297.563002852102084",
   "orders": [
@@ -204,6 +206,40 @@
       "fee": "38.56332672385409",
       "reject_reason": null,
       "created_at": "2026-06-01T09:36:49.508065+00:00"
+    },
+    {
+      "id": "f4c52400-830d-4427-8d4b-5f8f355c3092",
+      "client_order_id": "sm-2ab487c9f99d",
+      "strategy": "daemon",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "57",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "57",
+      "avg_fill_price": "1391.9391799999999",
+      "fee": "38.59504342400695",
+      "reject_reason": null,
+      "created_at": "2026-06-01T13:16:15.050957+00:00"
+    },
+    {
+      "id": "e5d3cec2-24aa-473c-b8a1-3420aa37052d",
+      "client_order_id": "sm-5593c700f63c",
+      "strategy": "daemon",
+      "symbol": "SBIN.NS",
+      "side": "buy",
+      "qty": "20",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "20",
+      "avg_fill_price": "954.19541",
+      "fee": "10.3624858169672",
+      "reject_reason": null,
+      "created_at": "2026-06-01T13:16:15.054701+00:00"
     }
   ],
   "fills": [
@@ -327,6 +363,28 @@
       "fee": "38.56332672385409",
       "venue": "local_paper",
       "ts": "2026-06-01T09:36:49.508814+00:00"
+    },
+    {
+      "id": "011a46c0-6860-45d3-804c-d5ee2e265c7d",
+      "order_id": "f4c52400-830d-4427-8d4b-5f8f355c3092",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "57",
+      "price": "1391.9391799999999",
+      "fee": "38.59504342400695",
+      "venue": "local_paper",
+      "ts": "2026-06-01T13:16:15.051753+00:00"
+    },
+    {
+      "id": "6995db7d-bfd4-4bcf-82c7-02665375a4d9",
+      "order_id": "e5d3cec2-24aa-473c-b8a1-3420aa37052d",
+      "symbol": "SBIN.NS",
+      "side": "buy",
+      "qty": "20",
+      "price": "954.19541",
+      "fee": "10.3624858169672",
+      "venue": "local_paper",
+      "ts": "2026-06-01T13:16:15.055349+00:00"
     }
   ],
   "equity_history": [
@@ -457,7 +515,15 @@
     [
       "2026-06-01T09:36:49.510652+00:00",
       "994508.0818134535"
+    ],
+    [
+      "2026-06-01T13:16:15.053761+00:00",
+      "993519.9535100295"
+    ],
+    [
+      "2026-06-01T13:16:15.057280+00:00",
+      "993507.6828242125"
     ]
   ],
-  "updated_at": "2026-06-01T09:36:49.510667+00:00"
+  "updated_at": "2026-06-01T13:16:15.057295+00:00"
 }
