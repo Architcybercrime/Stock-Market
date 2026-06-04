@@ -1,24 +1,24 @@
 {
   "schema_version": 1,
-  "cash": "551469.415390107135153",
+  "cash": "531258.090874248014527",
   "initial_capital": "1000000.00",
   "positions": {
-    "SBIN.NS": "55",
     "DRREDDY.NS": "60",
     "ONGC.NS": "292",
     "TATASTEEL.NS": "366",
     "SUNPHARMA.NS": "44",
-    "NESTLEIND.NS": "57"
+    "NESTLEIND.NS": "57",
+    "AXISBANK.NS": "59"
   },
   "avg_costs": {
-    "SBIN.NS": "950.4757702303598759036144578",
     "DRREDDY.NS": "1328.03279",
     "ONGC.NS": "274.077405",
     "TATASTEEL.NS": "214.72146999999998",
     "SUNPHARMA.NS": "1799.37992",
-    "NESTLEIND.NS": "1391.9391799999999"
+    "NESTLEIND.NS": "1391.9391799999999",
+    "AXISBANK.NS": "1253.42533"
   },
-  "realized_pnl": "915.0262830986662786987951816",
+  "realized_pnl": "2417.205524616204594000000003",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -291,6 +291,40 @@
       "fee": "37.84753797728903",
       "reject_reason": null,
       "created_at": "2026-06-03T12:24:38.240595+00:00"
+    },
+    {
+      "id": "2e7dbcb5-69e8-45a7-82af-e2cd4bffe7ae",
+      "client_order_id": "sm-a63f49ef4fa5",
+      "strategy": "daemon",
+      "symbol": "SBIN.NS",
+      "side": "sell",
+      "qty": "55",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "55",
+      "avg_fill_price": "979.152075",
+      "fee": "75.01752081266851",
+      "reject_reason": null,
+      "created_at": "2026-06-04T13:47:26.945008+00:00"
+    },
+    {
+      "id": "9384549c-1b7f-4ea3-b8dc-050ad98bd3f8",
+      "client_order_id": "sm-3afd7253002b",
+      "strategy": "daemon",
+      "symbol": "AXISBANK.NS",
+      "side": "buy",
+      "qty": "59",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "59",
+      "avg_fill_price": "1253.42533",
+      "fee": "37.576650046452116",
+      "reject_reason": null,
+      "created_at": "2026-06-04T13:47:26.948443+00:00"
     }
   ],
   "fills": [
@@ -469,6 +503,28 @@
       "fee": "37.84753797728903",
       "venue": "local_paper",
       "ts": "2026-06-03T12:24:38.241427+00:00"
+    },
+    {
+      "id": "34b5be57-7368-4a06-9188-7bc95a1c566a",
+      "order_id": "2e7dbcb5-69e8-45a7-82af-e2cd4bffe7ae",
+      "symbol": "SBIN.NS",
+      "side": "sell",
+      "qty": "55",
+      "price": "979.152075",
+      "fee": "75.01752081266851",
+      "venue": "local_paper",
+      "ts": "2026-06-04T13:47:26.945689+00:00"
+    },
+    {
+      "id": "5d41a620-8233-4463-b3da-6646e751bf67",
+      "order_id": "9384549c-1b7f-4ea3-b8dc-050ad98bd3f8",
+      "symbol": "AXISBANK.NS",
+      "side": "buy",
+      "qty": "59",
+      "price": "1253.42533",
+      "fee": "37.576650046452116",
+      "venue": "local_paper",
+      "ts": "2026-06-04T13:47:26.949026+00:00"
     }
   ],
   "equity_history": [
@@ -643,30 +699,15 @@
     [
       "2026-06-04T06:25:52.628459+00:00",
       "994628.659713837599353"
-    ]
-  ],
-  "updated_at": "2026-06-03T12:24:38.243692+00:00",
-  "last_prices": {
-    "AXISBANK.NS": 1248.699951171875,
-    "DRREDDY.NS": 1266.199951171875,
-    "NESTLEIND.NS": 1391.199951171875,
-    "ONGC.NS": 267.6000061035156,
-    "SBIN.NS": 980.0499877929688,
-    "SUNPHARMA.NS": 1780.5999755859375,
-    "TATASTEEL.NS": 211.75
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-06-03T15:51:18.040564+00:00",
-      "23405.5996"
     ],
     [
-      "2026-06-04T06:25:52.628459+00:00",
-      "23410.8496"
+      "2026-06-04T13:47:26.947380+00:00",
+      "993640.6819942945"
+    ],
+    [
+      "2026-06-04T13:47:26.950960+00:00",
+      "993595.7108742481"
     ]
   ],
-  "mark_to_market_equity": 994628.6597138376,
-  "currency": "INR",
-  "snapshot_at": "2026-06-04T06:25:52.628459+00:00"
+  "updated_at": "2026-06-04T13:47:26.950976+00:00"
 }
