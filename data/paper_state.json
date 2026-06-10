@@ -1,20 +1,14 @@
 {
   "schema_version": 1,
-  "cash": "682639.932895710803867",
+  "cash": "907416.623887787263647",
   "initial_capital": "1000000.00",
   "positions": {
-    "ONGC.NS": "292",
-    "TATASTEEL.NS": "366",
-    "SUNPHARMA.NS": "44",
     "NESTLEIND.NS": "57"
   },
   "avg_costs": {
-    "ONGC.NS": "274.077405",
-    "TATASTEEL.NS": "214.72146999999998",
-    "SUNPHARMA.NS": "1799.37992",
     "NESTLEIND.NS": "1391.9391799999999"
   },
-  "realized_pnl": "164.985676078993934000000003",
+  "realized_pnl": "-12849.70009184453896600000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -355,6 +349,57 @@
       "fee": "103.11264579621438",
       "reject_reason": null,
       "created_at": "2026-06-08T12:19:07.685206+00:00"
+    },
+    {
+      "id": "a9940760-fca5-412a-8787-082a3ddf15f2",
+      "client_order_id": "sm-3473be2c4ec8",
+      "strategy": "daemon",
+      "symbol": "ONGC.NS",
+      "side": "sell",
+      "qty": "292",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "292",
+      "avg_fill_price": "251.87481",
+      "fee": "100.01550066650192",
+      "reject_reason": null,
+      "created_at": "2026-06-10T14:02:10.570827+00:00"
+    },
+    {
+      "id": "0f20c5bb-3c2f-4a29-87f0-beb7a4a5296f",
+      "client_order_id": "sm-a4a49ecd1e86",
+      "strategy": "daemon",
+      "symbol": "TATASTEEL.NS",
+      "side": "sell",
+      "qty": "366",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "366",
+      "avg_fill_price": "199.29006900000002",
+      "fee": "99.38453993824498",
+      "reject_reason": null,
+      "created_at": "2026-06-10T14:02:10.573635+00:00"
+    },
+    {
+      "id": "c5da5805-5af9-485a-a1fe-139ce44e9618",
+      "client_order_id": "sm-03839dc3944e",
+      "strategy": "daemon",
+      "symbol": "SUNPHARMA.NS",
+      "side": "sell",
+      "qty": "44",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "44",
+      "avg_fill_price": "1786.22136",
+      "fee": "105.25858131880064",
+      "reject_reason": null,
+      "created_at": "2026-06-10T14:02:10.576413+00:00"
     }
   ],
   "fills": [
@@ -577,6 +622,39 @@
       "fee": "103.11264579621438",
       "venue": "local_paper",
       "ts": "2026-06-08T12:19:07.686016+00:00"
+    },
+    {
+      "id": "3d68e6b5-c4ec-4674-8233-4813ef7293e5",
+      "order_id": "a9940760-fca5-412a-8787-082a3ddf15f2",
+      "symbol": "ONGC.NS",
+      "side": "sell",
+      "qty": "292",
+      "price": "251.87481",
+      "fee": "100.01550066650192",
+      "venue": "local_paper",
+      "ts": "2026-06-10T14:02:10.571431+00:00"
+    },
+    {
+      "id": "94f6049c-e5be-4a5c-b5f2-03329b90a834",
+      "order_id": "0f20c5bb-3c2f-4a29-87f0-beb7a4a5296f",
+      "symbol": "TATASTEEL.NS",
+      "side": "sell",
+      "qty": "366",
+      "price": "199.29006900000002",
+      "fee": "99.38453993824498",
+      "venue": "local_paper",
+      "ts": "2026-06-10T14:02:10.574297+00:00"
+    },
+    {
+      "id": "a5649b2e-7b13-4b76-8aad-cb41f50b7e93",
+      "order_id": "c5da5805-5af9-485a-a1fe-139ce44e9618",
+      "symbol": "SUNPHARMA.NS",
+      "side": "sell",
+      "qty": "44",
+      "price": "1786.22136",
+      "fee": "105.25858131880064",
+      "venue": "local_paper",
+      "ts": "2026-06-10T14:02:10.577105+00:00"
     }
   ],
   "equity_history": [
@@ -815,38 +893,19 @@
     [
       "2026-06-10T06:10:37.269758+00:00",
       "993038.254825642452707"
+    ],
+    [
+      "2026-06-10T14:02:10.572623+00:00",
+      "989619.5219150443"
+    ],
+    [
+      "2026-06-10T14:02:10.575166+00:00",
+      "989512.842629106"
+    ],
+    [
+      "2026-06-10T14:02:10.577717+00:00",
+      "989399.7238877873"
     ]
   ],
-  "updated_at": "2026-06-08T12:19:07.687521+00:00",
-  "last_prices": {
-    "AXISBANK.NS": 1316.800048828125,
-    "DRREDDY.NS": 1277.9000244140625,
-    "NESTLEIND.NS": 1446.0,
-    "ONGC.NS": 257.1499938964844,
-    "SBIN.NS": 1008.6500244140625,
-    "SUNPHARMA.NS": 1794.300048828125,
-    "TATASTEEL.NS": 202.02000427246094
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-06-08T14:52:21.164205+00:00",
-      "23123.0000"
-    ],
-    [
-      "2026-06-09T05:56:27.454605+00:00",
-      "23113.4492"
-    ],
-    [
-      "2026-06-09T13:47:33.570429+00:00",
-      "23242.0996"
-    ],
-    [
-      "2026-06-10T06:10:37.269758+00:00",
-      "23405.0508"
-    ]
-  ],
-  "mark_to_market_equity": 993038.2548256424,
-  "currency": "INR",
-  "snapshot_at": "2026-06-10T06:10:37.269758+00:00"
+  "updated_at": "2026-06-10T14:02:10.577734+00:00"
 }
