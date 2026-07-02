@@ -1,16 +1,18 @@
 {
   "schema_version": 1,
-  "cash": "738109.057214919467251",
+  "cash": "659429.000895338352127",
   "initial_capital": "1000000.00",
   "positions": {
     "NESTLEIND.NS": "57",
     "DRREDDY.NS": "62",
-    "ONGC.NS": "337"
+    "ONGC.NS": "337",
+    "TATASTEEL.NS": "419"
   },
   "avg_costs": {
     "NESTLEIND.NS": "1391.9391799999999",
     "DRREDDY.NS": "1269.1269",
-    "ONGC.NS": "233.12331"
+    "ONGC.NS": "233.12331",
+    "TATASTEEL.NS": "187.68876699999998"
   },
   "realized_pnl": "-24716.52004443954828600000000",
   "orders": [
@@ -540,6 +542,23 @@
       "fee": "104.38362639184376",
       "reject_reason": null,
       "created_at": "2026-07-02T10:22:01.972554+00:00"
+    },
+    {
+      "id": "a917800e-460e-4a42-968f-b0c1e77c76de",
+      "client_order_id": "sm-24507cf74f6d",
+      "strategy": "daemon",
+      "symbol": "TATASTEEL.NS",
+      "side": "buy",
+      "qty": "419",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "419",
+      "avg_fill_price": "187.68876699999998",
+      "fee": "38.462946581123504",
+      "reject_reason": null,
+      "created_at": "2026-07-02T12:34:51.057751+00:00"
     }
   ],
   "fills": [
@@ -883,6 +902,17 @@
       "fee": "104.38362639184376",
       "venue": "local_paper",
       "ts": "2026-07-02T10:22:01.973110+00:00"
+    },
+    {
+      "id": "1fafb912-9e2e-4889-87c3-f5da2f25cc0d",
+      "order_id": "a917800e-460e-4a42-968f-b0c1e77c76de",
+      "symbol": "TATASTEEL.NS",
+      "side": "buy",
+      "qty": "419",
+      "price": "187.68876699999998",
+      "fee": "38.462946581123504",
+      "venue": "local_paper",
+      "ts": "2026-07-02T12:34:51.058341+00:00"
     }
   ],
   "equity_history": [
@@ -1341,7 +1371,11 @@
     [
       "2026-07-02T10:22:01.974386+00:00",
       "983241.0872149195"
+    ],
+    [
+      "2026-07-02T12:34:51.059825+00:00",
+      "983448.0508953383"
     ]
   ],
-  "updated_at": "2026-07-02T10:22:01.974403+00:00"
+  "updated_at": "2026-07-02T12:34:51.059841+00:00"
 }
