@@ -1,18 +1,20 @@
 {
   "schema_version": 1,
-  "cash": "657844.124175953695292",
+  "cash": "593098.916506588496732",
   "initial_capital": "1000000.00",
   "positions": {
     "NESTLEIND.NS": "57",
     "ONGC.NS": "337",
     "TATASTEEL.NS": "419",
-    "AXISBANK.NS": "60"
+    "AXISBANK.NS": "60",
+    "DRREDDY.NS": "52"
   },
   "avg_costs": {
     "NESTLEIND.NS": "1391.9391799999999",
     "ONGC.NS": "233.12331",
     "TATASTEEL.NS": "187.68876699999998",
-    "AXISBANK.NS": "1309.63095"
+    "AXISBANK.NS": "1309.63095",
+    "DRREDDY.NS": "1244.42443"
   },
   "realized_pnl": "-26370.95666316263312100000000",
   "orders": [
@@ -610,6 +612,23 @@
       "fee": "90.12284280000144",
       "reject_reason": null,
       "created_at": "2026-07-13T07:33:06.351439+00:00"
+    },
+    {
+      "id": "5411fdbf-4cf6-4dfe-9b61-ec0da0f39e47",
+      "client_order_id": "sm-68c5bf6ef35c",
+      "strategy": "daemon",
+      "symbol": "DRREDDY.NS",
+      "side": "buy",
+      "qty": "52",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "52",
+      "avg_fill_price": "1244.42443",
+      "fee": "35.13730936519856",
+      "reject_reason": null,
+      "created_at": "2026-07-13T10:44:18.168885+00:00"
     }
   ],
   "fills": [
@@ -997,6 +1016,17 @@
       "fee": "90.12284280000144",
       "venue": "local_paper",
       "ts": "2026-07-13T07:33:06.352110+00:00"
+    },
+    {
+      "id": "0768cbdd-2027-41ca-b560-ca53591a3dda",
+      "order_id": "5411fdbf-4cf6-4dfe-9b61-ec0da0f39e47",
+      "symbol": "DRREDDY.NS",
+      "side": "buy",
+      "qty": "52",
+      "price": "1244.42443",
+      "fee": "35.13730936519856",
+      "venue": "local_paper",
+      "ts": "2026-07-13T10:44:18.169548+00:00"
     }
   ],
   "equity_history": [
@@ -1559,7 +1589,11 @@
     [
       "2026-07-13T07:33:06.353442+00:00",
       "982872.6541759537"
+    ],
+    [
+      "2026-07-13T10:44:18.171206+00:00",
+      "982831.0465065885"
     ]
   ],
-  "updated_at": "2026-07-13T07:33:06.353458+00:00"
+  "updated_at": "2026-07-13T10:44:18.171223+00:00"
 }
