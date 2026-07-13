@@ -1,22 +1,20 @@
 {
   "schema_version": 1,
-  "cash": "593098.916506588496732",
+  "cash": "657197.084063563019112",
   "initial_capital": "1000000.00",
   "positions": {
     "NESTLEIND.NS": "57",
     "ONGC.NS": "337",
     "TATASTEEL.NS": "419",
-    "AXISBANK.NS": "60",
-    "DRREDDY.NS": "52"
+    "AXISBANK.NS": "60"
   },
   "avg_costs": {
     "NESTLEIND.NS": "1391.9391799999999",
     "ONGC.NS": "233.12331",
     "TATASTEEL.NS": "187.68876699999998",
-    "AXISBANK.NS": "1309.63095",
-    "DRREDDY.NS": "1244.42443"
+    "AXISBANK.NS": "1309.63095"
   },
-  "realized_pnl": "-26370.95666316263312100000000",
+  "realized_pnl": "-26982.85946618811074100000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -629,6 +627,23 @@
       "fee": "35.13730936519856",
       "reject_reason": null,
       "created_at": "2026-07-13T10:44:18.168885+00:00"
+    },
+    {
+      "id": "86e635d2-1fba-42a6-ba40-ba8c29a1ebb9",
+      "client_order_id": "sm-6076da348d00",
+      "strategy": "daemon",
+      "symbol": "DRREDDY.NS",
+      "side": "sell",
+      "qty": "52",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "52",
+      "avg_fill_price": "1234.37655",
+      "fee": "89.41304302547762",
+      "reject_reason": null,
+      "created_at": "2026-07-13T13:07:17.972457+00:00"
     }
   ],
   "fills": [
@@ -1027,6 +1042,17 @@
       "fee": "35.13730936519856",
       "venue": "local_paper",
       "ts": "2026-07-13T10:44:18.169548+00:00"
+    },
+    {
+      "id": "3efad04d-3bc9-4363-95bb-00c69cb14aec",
+      "order_id": "86e635d2-1fba-42a6-ba40-ba8c29a1ebb9",
+      "symbol": "DRREDDY.NS",
+      "side": "sell",
+      "qty": "52",
+      "price": "1234.37655",
+      "fee": "89.41304302547762",
+      "venue": "local_paper",
+      "ts": "2026-07-13T13:07:17.973075+00:00"
     }
   ],
   "equity_history": [
@@ -1593,7 +1619,11 @@
     [
       "2026-07-13T10:44:18.171206+00:00",
       "982831.0465065885"
+    ],
+    [
+      "2026-07-13T13:07:17.974431+00:00",
+      "979826.824063563"
     ]
   ],
-  "updated_at": "2026-07-13T10:44:18.171223+00:00"
+  "updated_at": "2026-07-13T13:07:17.974448+00:00"
 }
