@@ -3,89 +3,94 @@
 
 [profile] opportunity: Opportunity-driven. Holds up to 15 positions only if signals warrant. Deployed capital scales 20-95% with aggregate signal quality. Days with strong, broad signals will trade 10+ stocks; days with weak or conflicting signals will sit mostly in cash. Sizes by conviction (score × confidence) so high-conviction names get larger slices. This is what the user asked for: 'trade many one day, none the next'.
 
-[2m2026-07-20T06:56:16.208759Z[0m [[32m[1minfo     [0m] [1mlocal_paper.state_loaded      [0m [36mcash[0m=[35m578124.754491204553032[0m [36mpath[0m=[35mdata/paper_state.json[0m [36mpositions[0m=[35m5[0m
+[2m2026-07-20T10:27:05.797535Z[0m [[32m[1minfo     [0m] [1mlocal_paper.state_loaded      [0m [36mcash[0m=[35m578124.754491204553032[0m [36mpath[0m=[35mdata/paper_state.json[0m [36mpositions[0m=[35m5[0m
 [market]    NSE (currency: INR)
 [broker]    local_paper [NSE] (state=/home/runner/work/Stock-Market/Stock-Market/data/paper_state.json)
 [timeframe] 1d
 [universe]  28 symbols: HDFCBANK.NS ICICIBANK.NS KOTAKBANK.NS AXISBANK.NS SBIN.NS TCS.NS...
-[2m2026-07-20T06:56:16.209152Z[0m [[32m[1minfo     [0m] [1mdaemon.run.start              [0m [36mmode[0m=[35mpaper[0m [36mprofile[0m=[35mopportunity[0m [36muniverse[0m=[35m28[0m
-[2m2026-07-20T06:56:26.508030Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:56:35.038371Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:56:43.543116Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:56:53.836577Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:57:03.052655Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:57:16.992575Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:57:17.298778Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T06:57:16.992916+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T06:57:16.992916+00:00[0m [36msymbol[0m=[35mNESTLEIND.NS[0m
-[2m2026-07-20T06:57:31.227168Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:57:51.369000Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:05.311732Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:15.257456Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:24.203114Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:32.986501Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:32.986821Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T06:58:32.986788+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T06:58:32.986788+00:00[0m [36msymbol[0m=[35mONGC.NS[0m
-[2m2026-07-20T06:58:42.090511Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:58:51.013628Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:00.194411Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:09.033387Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:19.035046Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:27.922601Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:27.922943Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T06:59:27.922920+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T06:59:27.922920+00:00[0m [36msymbol[0m=[35mTATASTEEL.NS[0m
-[2m2026-07-20T06:59:37.160299Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:45.641565Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T06:59:54.186721Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:02.929993Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:11.434207Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:21.057529Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:21.057877Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T07:00:21.057846+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T07:00:21.057846+00:00[0m [36msymbol[0m=[35mAXISBANK.NS[0m
-[2m2026-07-20T07:00:30.686327Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:39.484693Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:48.433224Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:00:57.226027Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:06.080764Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:14.975076Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:14.975446Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T07:01:14.975420+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T07:01:14.975420+00:00[0m [36msymbol[0m=[35mSBIN.NS[0m
-[2m2026-07-20T07:01:24.163379Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-05-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:33.049447Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-02[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:41.393336Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-03[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:49.692421Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-04[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:01:58.012734Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-05[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:07.439552Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-06[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:16.027825Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-09[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:24.842022Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-10[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:33.694368Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-11[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:42.402883Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-12[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:02:50.837276Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:03:01.849921Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:03:20.541837Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:03:39.283174Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-18[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:03:52.880604Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-19[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:04:07.808337Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:04:24.263639Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-23[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:04:34.980378Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-24[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:04:44.538049Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-25[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:04:53.895437Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-26[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:02.820273Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-27[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:11.977247Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:20.970812Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-01[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:30.383280Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-02[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:39.075884Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-03[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:48.359723Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-04[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:05:57.162546Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-07[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:05.898835Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-08[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:14.115364Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-09[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:22.599147Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-10[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:31.238092Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-11[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:40.747239Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:50.326707Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:06:59.372896Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:07.871560Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:16.388945Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-18[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:25.403528Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-21[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:34.395825Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-22[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:43.430284Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-23[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:07:52.225378Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-24[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:08:01.270114Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-25[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:08:10.108547Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-28[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:08:18.988773Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-29[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:08:27.953322Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
-[2m2026-07-20T07:08:41.856714Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-31[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:05.797959Z[0m [[32m[1minfo     [0m] [1mdaemon.run.start              [0m [36mmode[0m=[35mpaper[0m [36mprofile[0m=[35mopportunity[0m [36muniverse[0m=[35m28[0m
+[2m2026-07-20T10:27:15.028686Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:24.030088Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:32.895775Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:41.291524Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:49.790843Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:59.115038Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:27:59.372199Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T10:27:59.115316+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T10:27:59.115316+00:00[0m [36msymbol[0m=[35mNESTLEIND.NS[0m
+[2m2026-07-20T10:28:08.987170Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:18.464156Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:27.747307Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:36.863507Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:48.106182Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:56.704035Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:28:56.704316Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T10:28:56.704294+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T10:28:56.704294+00:00[0m [36msymbol[0m=[35mONGC.NS[0m
+[2m2026-07-20T10:29:06.513221Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:14.881012Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:23.124160Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:31.246886Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:39.205767Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:47.466790Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:29:47.467101Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T10:29:47.467069+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T10:29:47.467069+00:00[0m [36msymbol[0m=[35mTATASTEEL.NS[0m
+[2m2026-07-20T10:29:56.925682Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:06.323809Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:15.562700Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:24.875590Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:34.175269Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:43.678811Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:30:43.679129Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T10:30:43.679098+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T10:30:43.679098+00:00[0m [36msymbol[0m=[35mAXISBANK.NS[0m
+[2m2026-07-20T10:30:53.253437Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:06.792891Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:32.089239Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:41.165934Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:49.631729Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:59.893859Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2026-07-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:31:59.894184Z[0m [[32m[1minfo     [0m] [1myfinance.fetch                [0m [36mend[0m=[35m2026-07-20T10:31:59.894151+00:00[0m [36minterval[0m=[35m1d[0m [36mstart[0m=[35m2026-07-10T10:31:59.894151+00:00[0m [36msymbol[0m=[35mSBIN.NS[0m
+[2m2026-07-20T10:32:11.416105Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-05-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:32:22.310895Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-02[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:32:33.711335Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-03[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:32:43.436810Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-04[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:32:52.487806Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-05[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:01.390599Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-06[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:10.564274Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-09[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:19.581538Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-10[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:27.895460Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-11[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:37.366646Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-12[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:46.874453Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-13[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:33:55.615247Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:04.112225Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:12.212794Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-18[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:20.959579Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-19[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:30.536421Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-20[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:39.026153Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-23[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:46.890161Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-24[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:34:54.755083Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-25[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:02.872841Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-26[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:11.090798Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-27[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:20.105986Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-06-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:29.458539Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-01[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:38.710703Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-02[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:47.671358Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-03[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:35:56.969782Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-04[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:36:05.925461Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-07[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:36:14.821122Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-08[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:36:24.055352Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-09[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:36:32.645582Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-10[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:36:45.687775Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-11[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:10.274935Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-14[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:18.679984Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-15[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:27.403712Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-16[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:36.026219Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-17[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:44.575737Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-18[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:37:53.845049Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-21[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:03.978131Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-22[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:13.019567Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-23[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:21.789012Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-24[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:30.659246Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-25[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:39.482732Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-28[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:48.154821Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-29[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:38:57.204766Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-30[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:05.410420Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-07-31[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:13.896520Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-08-01[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:23.558151Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-08-04[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:32.755084Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-08-05[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:42.779961Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-08-06[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
+[2m2026-07-20T10:39:51.897247Z[0m [[33m[1mwarning  [0m] [1mnse_bhavcopy.fetch_failed     [0m [36mdate[0m=[35m2025-08-07[0m [36merror[0m=[35m'HTTP Error 503: Service Unavailable'[0m
