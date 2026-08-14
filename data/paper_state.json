@@ -1,18 +1,22 @@
 {
   "schema_version": 1,
-  "cash": "659999.838003245549221",
+  "cash": "510542.668772539975951",
   "initial_capital": "1000000.00",
   "positions": {
     "NESTLEIND.NS": "51",
     "ONGC.NS": "337",
     "SUNPHARMA.NS": "40",
-    "TATASTEEL.NS": "426"
+    "TATASTEEL.NS": "426",
+    "BAJFINANCE.NS": "66",
+    "ICICIBANK.NS": "55"
   },
   "avg_costs": {
     "NESTLEIND.NS": "1391.9391799999999",
     "ONGC.NS": "233.12331",
     "SUNPHARMA.NS": "1943.1942999999999",
-    "TATASTEEL.NS": "182.648263"
+    "TATASTEEL.NS": "182.648263",
+    "BAJFINANCE.NS": "1090.90908",
+    "ICICIBANK.NS": "1406.94068"
   },
   "realized_pnl": "-34023.74417068908822100000000",
   "orders": [
@@ -831,6 +835,40 @@
       "fee": "104.30965727429528",
       "reject_reason": null,
       "created_at": "2026-08-13T05:48:49.363087+00:00"
+    },
+    {
+      "id": "807c0bc9-3391-4787-a7a2-4c9ef1041ce4",
+      "client_order_id": "sm-3385d594e135",
+      "strategy": "daemon",
+      "symbol": "BAJFINANCE.NS",
+      "side": "buy",
+      "qty": "66",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "66",
+      "avg_fill_price": "1090.90908",
+      "fee": "37.207711863922874",
+      "reject_reason": null,
+      "created_at": "2026-08-14T05:46:17.032405+00:00"
+    },
+    {
+      "id": "159af563-bd05-45e6-b990-38358a965396",
+      "client_order_id": "sm-578d296639a9",
+      "strategy": "daemon",
+      "symbol": "ICICIBANK.NS",
+      "side": "buy",
+      "qty": "55",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "55",
+      "avg_fill_price": "1406.94068",
+      "fee": "38.224838841650396",
+      "reject_reason": null,
+      "created_at": "2026-08-14T05:46:17.037090+00:00"
     }
   ],
   "fills": [
@@ -1361,6 +1399,28 @@
       "fee": "104.30965727429528",
       "venue": "local_paper",
       "ts": "2026-08-13T05:48:49.363697+00:00"
+    },
+    {
+      "id": "7ee28a66-1919-4487-9794-7b601459d9bb",
+      "order_id": "807c0bc9-3391-4787-a7a2-4c9ef1041ce4",
+      "symbol": "BAJFINANCE.NS",
+      "side": "buy",
+      "qty": "66",
+      "price": "1090.90908",
+      "fee": "37.207711863922874",
+      "venue": "local_paper",
+      "ts": "2026-08-14T05:46:17.033212+00:00"
+    },
+    {
+      "id": "a1aa7cfa-3a31-46ce-b896-5dea4b68a027",
+      "order_id": "159af563-bd05-45e6-b990-38358a965396",
+      "symbol": "ICICIBANK.NS",
+      "side": "buy",
+      "qty": "55",
+      "price": "1406.94068",
+      "fee": "38.224838841650396",
+      "venue": "local_paper",
+      "ts": "2026-08-14T05:46:17.037719+00:00"
     }
   ],
   "equity_history": [
@@ -2231,31 +2291,15 @@
     [
       "2026-08-14T03:52:37.011402+00:00",
       "972607.964696971137241"
-    ]
-  ],
-  "updated_at": "2026-08-13T05:48:49.364863+00:00",
-  "last_prices": {
-    "AXISBANK.NS": 1213.199951171875,
-    "BAJFINANCE.NS": 1096.0,
-    "LT.NS": 4056.800048828125,
-    "NESTLEIND.NS": 1509.199951171875,
-    "ONGC.NS": 238.8300018310547,
-    "SBIN.NS": 1073.0999755859375,
-    "SUNPHARMA.NS": 1930.199951171875,
-    "TATASTEEL.NS": 182.97000122070312
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-08-13T11:54:37.694462+00:00",
-      "24395.8496"
     ],
     [
-      "2026-08-14T03:52:37.011402+00:00",
-      "24319.5508"
+      "2026-08-14T05:46:17.035124+00:00",
+      "973679.7310113816"
+    ],
+    [
+      "2026-08-14T05:46:17.039996+00:00",
+      "973633.76877254"
     ]
   ],
-  "mark_to_market_equity": 972607.9646969711,
-  "currency": "INR",
-  "snapshot_at": "2026-08-14T03:52:37.011402+00:00"
+  "updated_at": "2026-08-14T05:46:17.040012+00:00"
 }
