@@ -1,6 +1,6 @@
 {
   "schema_version": 1,
-  "cash": "427549.324064534085434",
+  "cash": "503992.737090901643754",
   "initial_capital": "1000000.00",
   "positions": {
     "NESTLEIND.NS": "51",
@@ -8,8 +8,7 @@
     "SUNPHARMA.NS": "40",
     "TATASTEEL.NS": "426",
     "BAJFINANCE.NS": "72",
-    "ICICIBANK.NS": "55",
-    "ASIANPAINT.NS": "29"
+    "ICICIBANK.NS": "55"
   },
   "avg_costs": {
     "NESTLEIND.NS": "1391.9391799999999",
@@ -17,10 +16,9 @@
     "SUNPHARMA.NS": "1943.1942999999999",
     "TATASTEEL.NS": "182.648263",
     "BAJFINANCE.NS": "1086.8836775",
-    "ICICIBANK.NS": "1406.94068",
-    "ASIANPAINT.NS": "2641.06408"
+    "ICICIBANK.NS": "1406.94068"
   },
-  "realized_pnl": "-34082.17654349650282100000000",
+  "realized_pnl": "-34229.62183712894450100000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -956,6 +954,23 @@
       "fee": "38.07536585904672",
       "reject_reason": null,
       "created_at": "2026-08-25T08:11:09.378861+00:00"
+    },
+    {
+      "id": "5961a0c0-e305-43ae-b763-e4951ccf34e0",
+      "client_order_id": "sm-2f83e9085a86",
+      "strategy": "daemon",
+      "symbol": "ASIANPAINT.NS",
+      "side": "sell",
+      "qty": "29",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "29",
+      "avg_fill_price": "2639.53602",
+      "fee": "103.13155363244168",
+      "reject_reason": null,
+      "created_at": "2026-08-26T04:50:52.029114+00:00"
     }
   ],
   "fills": [
@@ -1563,6 +1578,17 @@
       "fee": "38.07536585904672",
       "venue": "local_paper",
       "ts": "2026-08-25T08:11:09.379385+00:00"
+    },
+    {
+      "id": "918b8792-ce7c-48ba-a698-b8de5c55f4dc",
+      "order_id": "5961a0c0-e305-43ae-b763-e4951ccf34e0",
+      "symbol": "ASIANPAINT.NS",
+      "side": "sell",
+      "qty": "29",
+      "price": "2639.53602",
+      "fee": "103.13155363244168",
+      "venue": "local_paper",
+      "ts": "2026-08-26T04:50:52.029701+00:00"
     }
   ],
   "equity_history": [
@@ -2557,32 +2583,11 @@
     [
       "2026-08-26T02:54:21.637061+00:00",
       "NaN"
-    ]
-  ],
-  "updated_at": "2026-08-25T08:11:09.381424+00:00",
-  "last_prices": {
-    "ASIANPAINT.NS": NaN,
-    "AXISBANK.NS": 1235.0,
-    "BAJFINANCE.NS": 1087.4000244140625,
-    "ICICIBANK.NS": 1422.699951171875,
-    "NESTLEIND.NS": 1479.0,
-    "ONGC.NS": 234.0,
-    "SBIN.NS": 1048.0,
-    "SUNPHARMA.NS": 1922.0,
-    "TATASTEEL.NS": 186.94000244140625
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-08-25T11:35:10.550795+00:00",
-      "24334.5508"
     ],
     [
-      "2026-08-26T02:54:21.637061+00:00",
-      "24334.5508"
+      "2026-08-26T04:50:52.031356+00:00",
+      "971337.4770909017"
     ]
   ],
-  "mark_to_market_equity": NaN,
-  "currency": "INR",
-  "snapshot_at": "2026-08-26T02:54:21.637061+00:00"
+  "updated_at": "2026-08-26T04:50:52.031375+00:00"
 }
