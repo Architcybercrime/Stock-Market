@@ -2607,19 +2607,23 @@
     [
       "2026-08-28T21:20:49.402853+00:00",
       "NaN"
+    ],
+    [
+      "2026-08-29T08:19:33.641772+00:00",
+      "NaN"
     ]
   ],
   "updated_at": "2026-08-26T04:50:52.031375+00:00",
   "last_prices": {
-    "ASIANPAINT.NS": NaN,
+    "ASIANPAINT.NS": 2608.699951171875,
     "AXISBANK.NS": NaN,
-    "BAJFINANCE.NS": NaN,
-    "ICICIBANK.NS": NaN,
-    "NESTLEIND.NS": NaN,
-    "ONGC.NS": NaN,
+    "BAJFINANCE.NS": 1079.9000244140625,
+    "ICICIBANK.NS": 1422.800048828125,
+    "NESTLEIND.NS": 1454.5999755859375,
+    "ONGC.NS": 232.25,
     "SBIN.NS": NaN,
     "SUNPHARMA.NS": NaN,
-    "TATASTEEL.NS": NaN
+    "TATASTEEL.NS": 186.5
   },
   "benchmark_symbol": "^NSEI",
   "benchmark_history": [
@@ -2642,9 +2646,13 @@
     [
       "2026-08-28T21:20:49.402853+00:00",
       "24090.8496"
+    ],
+    [
+      "2026-08-29T08:19:33.641772+00:00",
+      "24090.8496"
     ]
   ],
   "mark_to_market_equity": NaN,
   "currency": "INR",
-  "snapshot_at": "2026-08-28T21:20:49.402853+00:00"
+  "snapshot_at": "2026-08-29T08:19:33.641772+00:00"
 }
