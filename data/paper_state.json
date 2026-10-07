@@ -1,22 +1,22 @@
 {
   "schema_version": 1,
-  "cash": "565280.589148070149303",
+  "cash": "569373.035572226206323",
   "initial_capital": "1000000.00",
   "positions": {
     "ASIANPAINT.NS": "32",
     "KOTAKBANK.NS": "188",
     "SUNPHARMA.NS": "42",
     "NESTLEIND.NS": "58",
-    "ULTRACEMCO.NS": "7"
+    "BAJFINANCE.NS": "73"
   },
   "avg_costs": {
     "ASIANPAINT.NS": "2392.93927",
     "KOTAKBANK.NS": "406.0406",
     "SUNPHARMA.NS": "1779.87797",
     "NESTLEIND.NS": "1297.2297099999998",
-    "ULTRACEMCO.NS": "10751.075"
+    "BAJFINANCE.NS": "963.946385"
   },
-  "realized_pnl": "-55054.59479471843132200000000",
+  "realized_pnl": "-55814.68797876087372200000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -1411,6 +1411,40 @@
       "fee": "37.8233711949",
       "reject_reason": null,
       "created_at": "2026-10-06T14:26:48.522444+00:00"
+    },
+    {
+      "id": "44a99d20-e352-45f1-be5f-98e640768e0c",
+      "client_order_id": "sm-0c62fa4a688a",
+      "strategy": "daemon",
+      "symbol": "BAJFINANCE.NS",
+      "side": "buy",
+      "qty": "73",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "73",
+      "avg_fill_price": "963.946385",
+      "fee": "36.89928680150058",
+      "reject_reason": null,
+      "created_at": "2026-10-07T14:43:53.184303+00:00"
+    },
+    {
+      "id": "d5086aca-fc5f-4460-b6b1-b9b60e076048",
+      "client_order_id": "sm-89d890d2072e",
+      "strategy": "daemon",
+      "symbol": "ULTRACEMCO.NS",
+      "side": "sell",
+      "qty": "7",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "7",
+      "avg_fill_price": "10656.9342",
+      "fee": "101.1075840424424",
+      "reject_reason": null,
+      "created_at": "2026-10-07T14:43:53.192210+00:00"
     }
   ],
   "fills": [
@@ -2315,6 +2349,28 @@
       "fee": "37.8233711949",
       "venue": "local_paper",
       "ts": "2026-10-06T14:26:48.523534+00:00"
+    },
+    {
+      "id": "d5f02495-62c9-4870-950d-a7967bf5997b",
+      "order_id": "44a99d20-e352-45f1-be5f-98e640768e0c",
+      "symbol": "BAJFINANCE.NS",
+      "side": "buy",
+      "qty": "73",
+      "price": "963.946385",
+      "fee": "36.89928680150058",
+      "venue": "local_paper",
+      "ts": "2026-10-07T14:43:53.185541+00:00"
+    },
+    {
+      "id": "797504d2-9fa5-4e87-8b0c-d59b51480734",
+      "order_id": "d5086aca-fc5f-4460-b6b1-b9b60e076048",
+      "symbol": "ULTRACEMCO.NS",
+      "side": "sell",
+      "qty": "7",
+      "price": "10656.9342",
+      "fee": "101.1075840424424",
+      "venue": "local_paper",
+      "ts": "2026-10-07T14:43:53.193079+00:00"
     }
   ],
   "equity_history": [
@@ -3753,32 +3809,15 @@
     [
       "2026-10-07T07:45:15.130377+00:00",
       "949157.794836546707103"
-    ]
-  ],
-  "updated_at": "2026-10-06T14:26:48.526906+00:00",
-  "last_prices": {
-    "ASIANPAINT.NS": 2363.60009765625,
-    "BAJFINANCE.NS": 965.7999877929688,
-    "ICICIBANK.NS": 1348.0,
-    "KOTAKBANK.NS": 439.6000061035156,
-    "NESTLEIND.NS": 1315.9000244140625,
-    "ONGC.NS": 221.72000122070312,
-    "SUNPHARMA.NS": 1785.0,
-    "TATASTEEL.NS": 174.77999877929688,
-    "ULTRACEMCO.NS": 10615.0
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-10-06T17:07:39.269942+00:00",
-      "22776.0996"
     ],
     [
-      "2026-10-07T07:45:15.130377+00:00",
-      "22579.0508"
+      "2026-10-07T14:43:53.188986+00:00",
+      "950063.8537562686"
+    ],
+    [
+      "2026-10-07T14:43:53.195837+00:00",
+      "949955.2855722262"
     ]
   ],
-  "mark_to_market_equity": 949157.7948365468,
-  "currency": "INR",
-  "snapshot_at": "2026-10-07T07:45:15.130377+00:00"
+  "updated_at": "2026-10-07T14:43:53.195884+00:00"
 }
