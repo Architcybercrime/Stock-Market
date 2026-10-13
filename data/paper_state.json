@@ -1,26 +1,22 @@
 {
   "schema_version": 1,
-  "cash": "447328.481334662276100",
+  "cash": "597511.390368313175540",
   "initial_capital": "1000000.00",
   "positions": {
-    "ASIANPAINT.NS": "32",
     "KOTAKBANK.NS": "188",
-    "SUNPHARMA.NS": "42",
     "NESTLEIND.NS": "58",
     "BAJFINANCE.NS": "59",
     "BAJAJFINSV.NS": "35",
     "ICICIBANK.NS": "56"
   },
   "avg_costs": {
-    "ASIANPAINT.NS": "2392.93927",
     "KOTAKBANK.NS": "406.0406",
-    "SUNPHARMA.NS": "1779.87797",
     "NESTLEIND.NS": "1297.2297099999998",
     "BAJFINANCE.NS": "963.946385",
     "BAJAJFINSV.NS": "1708.1707999999999",
     "ICICIBANK.NS": "1349.1349"
   },
-  "realized_pnl": "-55946.61671783933704500000000",
+  "realized_pnl": "-57092.63906418843760500000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -1500,6 +1496,40 @@
       "fee": "18.641019078463323",
       "reject_reason": null,
       "created_at": "2026-10-08T14:50:44.452117+00:00"
+    },
+    {
+      "id": "0cdec617-bdd9-4da4-bd55-ec84006c8437",
+      "client_order_id": "sm-7f636dca71fe",
+      "strategy": "daemon",
+      "symbol": "SUNPHARMA.NS",
+      "side": "sell",
+      "qty": "42",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "42",
+      "avg_fill_price": "1770.52293",
+      "fee": "100.86178217148777",
+      "reject_reason": null,
+      "created_at": "2026-10-13T11:40:39.191339+00:00"
+    },
+    {
+      "id": "8eb9bdb2-c489-46c4-861f-08b5b61726a0",
+      "client_order_id": "sm-168dee93a97c",
+      "strategy": "daemon",
+      "symbol": "ASIANPAINT.NS",
+      "side": "sell",
+      "qty": "32",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "32",
+      "avg_fill_price": "2375.7624",
+      "fee": "102.58904417761279",
+      "reject_reason": null,
+      "created_at": "2026-10-13T11:40:39.199823+00:00"
     }
   ],
   "fills": [
@@ -2459,6 +2489,28 @@
       "fee": "18.641019078463323",
       "venue": "local_paper",
       "ts": "2026-10-08T14:50:44.452781+00:00"
+    },
+    {
+      "id": "f024aeb7-b2c9-4b6d-9fcb-da20a3b943b0",
+      "order_id": "0cdec617-bdd9-4da4-bd55-ec84006c8437",
+      "symbol": "SUNPHARMA.NS",
+      "side": "sell",
+      "qty": "42",
+      "price": "1770.52293",
+      "fee": "100.86178217148777",
+      "venue": "local_paper",
+      "ts": "2026-10-13T11:40:39.192526+00:00"
+    },
+    {
+      "id": "04f6e4f8-9a43-4fd2-a7ea-c550514a212f",
+      "order_id": "8eb9bdb2-c489-46c4-861f-08b5b61726a0",
+      "symbol": "ASIANPAINT.NS",
+      "side": "sell",
+      "qty": "32",
+      "price": "2375.7624",
+      "fee": "102.58904417761279",
+      "venue": "local_paper",
+      "ts": "2026-10-13T11:40:39.200710+00:00"
     }
   ],
   "equity_history": [
@@ -3965,65 +4017,15 @@
     [
       "2026-10-13T08:32:59.425308+00:00",
       "949925.844066595866900"
+    ],
+    [
+      "2026-10-13T11:40:39.196642+00:00",
+      "953128.5326124908"
+    ],
+    [
+      "2026-10-13T11:40:39.204344+00:00",
+      "953018.3403683131"
     ]
   ],
-  "updated_at": "2026-10-08T14:50:44.455683+00:00",
-  "last_prices": {
-    "ASIANPAINT.NS": 2346.60009765625,
-    "BAJAJFINSV.NS": 1746.0,
-    "BAJFINANCE.NS": 977.4500122070312,
-    "ICICIBANK.NS": 1353.800048828125,
-    "KOTAKBANK.NS": 438.45001220703125,
-    "NESTLEIND.NS": 1319.800048828125,
-    "ONGC.NS": 221.5399932861328,
-    "SUNPHARMA.NS": 1760.4000244140625,
-    "TATASTEEL.NS": 173.5399932861328,
-    "ULTRACEMCO.NS": 10657.0
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-10-08T17:49:03.210357+00:00",
-      "22231.8008"
-    ],
-    [
-      "2026-10-09T08:03:22.812045+00:00",
-      "22497.5000"
-    ],
-    [
-      "2026-10-09T17:24:17.983436+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-10T07:46:46.215227+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-10T16:10:08.254420+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-11T07:53:50.796992+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-11T16:36:36.401506+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-12T08:07:56.906720+00:00",
-      "22377.0508"
-    ],
-    [
-      "2026-10-12T20:13:11.168291+00:00",
-      "22520.4492"
-    ],
-    [
-      "2026-10-13T08:32:59.425308+00:00",
-      "22558.0996"
-    ]
-  ],
-  "mark_to_market_equity": 949925.8440665959,
-  "currency": "INR",
-  "snapshot_at": "2026-10-13T08:32:59.425308+00:00"
+  "updated_at": "2026-10-13T11:40:39.204365+00:00"
 }
