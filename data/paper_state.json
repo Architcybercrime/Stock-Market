@@ -1,22 +1,24 @@
 {
   "schema_version": 1,
-  "cash": "597511.390368313175540",
+  "cash": "564235.899700343811894",
   "initial_capital": "1000000.00",
   "positions": {
     "KOTAKBANK.NS": "188",
-    "NESTLEIND.NS": "58",
+    "NESTLEIND.NS": "27",
     "BAJFINANCE.NS": "59",
     "BAJAJFINSV.NS": "35",
-    "ICICIBANK.NS": "56"
+    "ICICIBANK.NS": "56",
+    "NIFTYBEES.NS": "295"
   },
   "avg_costs": {
     "KOTAKBANK.NS": "406.0406",
     "NESTLEIND.NS": "1297.2297099999998",
     "BAJFINANCE.NS": "963.946385",
     "BAJAJFINSV.NS": "1708.1707999999999",
-    "ICICIBANK.NS": "1349.1349"
+    "ICICIBANK.NS": "1349.1349",
+    "NIFTYBEES.NS": "257.805778"
   },
-  "realized_pnl": "-57092.63906418843760500000000",
+  "realized_pnl": "-54491.57257521622309100000000",
   "orders": [
     {
       "id": "f9b13b26-a3c5-40fa-b007-a165ddc745c6",
@@ -1530,6 +1532,40 @@
       "fee": "102.58904417761279",
       "reject_reason": null,
       "created_at": "2026-10-13T11:40:39.199823+00:00"
+    },
+    {
+      "id": "55e14415-c820-45f6-98c3-b39ea25a2b2b",
+      "client_order_id": "sm-467c44dbcd8b",
+      "strategy": "daemon",
+      "symbol": "NESTLEIND.NS",
+      "side": "sell",
+      "qty": "31",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "31",
+      "avg_fill_price": "1383.06168",
+      "fee": "59.724581027791686",
+      "reject_reason": null,
+      "created_at": "2026-10-14T13:02:48.931753+00:00"
+    },
+    {
+      "id": "dfb11112-53d9-4c1f-aaec-e6bbcc2f9932",
+      "client_order_id": "sm-6a5dd9e70420",
+      "strategy": "daemon",
+      "symbol": "NIFTYBEES.NS",
+      "side": "buy",
+      "qty": "295",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "295",
+      "avg_fill_price": "257.805778",
+      "fee": "37.97365694157196",
+      "reject_reason": null,
+      "created_at": "2026-10-14T13:02:48.939544+00:00"
     }
   ],
   "fills": [
@@ -2511,6 +2547,28 @@
       "fee": "102.58904417761279",
       "venue": "local_paper",
       "ts": "2026-10-13T11:40:39.200710+00:00"
+    },
+    {
+      "id": "bcbc2e23-a09b-4d1e-84aa-3393469450e5",
+      "order_id": "55e14415-c820-45f6-98c3-b39ea25a2b2b",
+      "symbol": "NESTLEIND.NS",
+      "side": "sell",
+      "qty": "31",
+      "price": "1383.06168",
+      "fee": "59.724581027791686",
+      "venue": "local_paper",
+      "ts": "2026-10-14T13:02:48.932884+00:00"
+    },
+    {
+      "id": "2ba4d7bb-d710-42a3-bdfd-30a38b0d37e8",
+      "order_id": "dfb11112-53d9-4c1f-aaec-e6bbcc2f9932",
+      "symbol": "NIFTYBEES.NS",
+      "side": "buy",
+      "qty": "295",
+      "price": "257.805778",
+      "fee": "37.97365694157196",
+      "venue": "local_paper",
+      "ts": "2026-10-14T13:02:48.940628+00:00"
     }
   ],
   "equity_history": [
@@ -4033,33 +4091,15 @@
     [
       "2026-10-14T06:47:16.578546+00:00",
       "953224.891222805363040"
-    ]
-  ],
-  "updated_at": "2026-10-13T11:40:39.204365+00:00",
-  "last_prices": {
-    "ASIANPAINT.NS": 2357.39990234375,
-    "BAJAJFINSV.NS": 1724.9000244140625,
-    "BAJFINANCE.NS": 971.0,
-    "ICICIBANK.NS": 1348.5,
-    "KOTAKBANK.NS": 443.75,
-    "NESTLEIND.NS": 1364.0,
-    "ONGC.NS": 224.44000244140625,
-    "SUNPHARMA.NS": 1744.9000244140625,
-    "TATASTEEL.NS": 174.9600067138672,
-    "ULTRACEMCO.NS": 10825.0
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-10-13T18:05:54.128117+00:00",
-      "22721.9492"
     ],
     [
-      "2026-10-14T06:47:16.578546+00:00",
-      "22726.1992"
+      "2026-10-14T13:02:48.936402+00:00",
+      "951710.4778672854"
+    ],
+    [
+      "2026-10-14T13:02:48.944644+00:00",
+      "951664.8997003438"
     ]
   ],
-  "mark_to_market_equity": 953224.8912228054,
-  "currency": "INR",
-  "snapshot_at": "2026-10-14T06:47:16.578546+00:00"
+  "updated_at": "2026-10-14T13:02:48.944664+00:00"
 }
