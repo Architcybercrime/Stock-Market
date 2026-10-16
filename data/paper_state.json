@@ -1,24 +1,26 @@
 {
   "schema_version": 1,
-  "cash": "488338.377342179352694",
+  "cash": "370335.308592303484948",
   "initial_capital": "1000000.00",
   "positions": {
     "KOTAKBANK.NS": "188",
-    "NESTLEIND.NS": "27",
+    "NESTLEIND.NS": "60",
     "BAJFINANCE.NS": "59",
     "BAJAJFINSV.NS": "35",
     "ICICIBANK.NS": "56",
     "NIFTYBEES.NS": "295",
-    "SUNPHARMA.NS": "43"
+    "SUNPHARMA.NS": "43",
+    "LT.NS": "21"
   },
   "avg_costs": {
     "KOTAKBANK.NS": "406.0406",
-    "NESTLEIND.NS": "1297.2297099999998",
+    "NESTLEIND.NS": "1279.84797199999991",
     "BAJFINANCE.NS": "963.946385",
     "BAJAJFINSV.NS": "1708.1707999999999",
     "ICICIBANK.NS": "1349.1349",
     "NIFTYBEES.NS": "257.805778",
-    "SUNPHARMA.NS": "1764.1764"
+    "SUNPHARMA.NS": "1764.1764",
+    "LT.NS": "3627.46271"
   },
   "realized_pnl": "-54491.57257521622309100000000",
   "orders": [
@@ -1585,6 +1587,40 @@
       "fee": "37.9371581644592",
       "reject_reason": null,
       "created_at": "2026-10-15T12:50:11.824589+00:00"
+    },
+    {
+      "id": "f85e5e5a-f75e-400e-aca4-69d043fb8485",
+      "client_order_id": "sm-b83e13733f15",
+      "strategy": "daemon",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "33",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "33",
+      "avg_fill_price": "1265.62655",
+      "fee": "22.678595086745396",
+      "reject_reason": null,
+      "created_at": "2026-10-16T12:42:23.010786+00:00"
+    },
+    {
+      "id": "d457a069-946e-4523-b509-8da3c1f4038f",
+      "client_order_id": "sm-a32e42b8b2b4",
+      "strategy": "daemon",
+      "symbol": "LT.NS",
+      "side": "buy",
+      "qty": "21",
+      "type": "market",
+      "limit_price": null,
+      "tif": "DAY",
+      "status": "filled",
+      "filled_qty": "21",
+      "avg_fill_price": "3627.46271",
+      "fee": "37.99709478912235",
+      "reject_reason": null,
+      "created_at": "2026-10-16T12:42:23.017361+00:00"
     }
   ],
   "fills": [
@@ -2599,6 +2635,28 @@
       "fee": "37.9371581644592",
       "venue": "local_paper",
       "ts": "2026-10-15T12:50:11.825365+00:00"
+    },
+    {
+      "id": "e445bd37-a33d-42b5-b3da-6af80a291436",
+      "order_id": "f85e5e5a-f75e-400e-aca4-69d043fb8485",
+      "symbol": "NESTLEIND.NS",
+      "side": "buy",
+      "qty": "33",
+      "price": "1265.62655",
+      "fee": "22.678595086745396",
+      "venue": "local_paper",
+      "ts": "2026-10-16T12:42:23.011518+00:00"
+    },
+    {
+      "id": "b29c4478-cad3-4ea2-a627-a308b1f1da16",
+      "order_id": "d457a069-946e-4523-b509-8da3c1f4038f",
+      "symbol": "LT.NS",
+      "side": "buy",
+      "qty": "21",
+      "price": "3627.46271",
+      "fee": "37.99709478912235",
+      "venue": "local_paper",
+      "ts": "2026-10-16T12:42:23.017987+00:00"
     }
   ],
   "equity_history": [
@@ -4149,34 +4207,15 @@
     [
       "2026-10-16T06:28:11.467315+00:00",
       "956034.975974991852694"
-    ]
-  ],
-  "updated_at": "2026-10-15T12:50:11.828301+00:00",
-  "last_prices": {
-    "ASIANPAINT.NS": 2339.199951171875,
-    "BAJAJFINSV.NS": 1735.5,
-    "BAJFINANCE.NS": 977.5999755859375,
-    "ICICIBANK.NS": 1391.199951171875,
-    "KOTAKBANK.NS": 446.04998779296875,
-    "NESTLEIND.NS": 1261.699951171875,
-    "NIFTYBEES.NS": 263.6400146484375,
-    "ONGC.NS": 224.27000427246094,
-    "SUNPHARMA.NS": 1759.800048828125,
-    "TATASTEEL.NS": 175.3699951171875,
-    "ULTRACEMCO.NS": 10913.0
-  },
-  "benchmark_symbol": "^NSEI",
-  "benchmark_history": [
-    [
-      "2026-10-15T15:33:14.020504+00:00",
-      "22997.3496"
     ],
     [
-      "2026-10-16T06:28:11.467315+00:00",
-      "23123.9004"
+      "2026-10-16T12:42:23.014652+00:00",
+      "956761.0225970926"
+    ],
+    [
+      "2026-10-16T12:42:23.021412+00:00",
+      "956715.4085923035"
     ]
   ],
-  "mark_to_market_equity": 956034.9759749918,
-  "currency": "INR",
-  "snapshot_at": "2026-10-16T06:28:11.467315+00:00"
+  "updated_at": "2026-10-16T12:42:23.021427+00:00"
 }
