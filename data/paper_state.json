@@ -4219,6 +4219,10 @@
     [
       "2026-10-16T15:19:53.011156+00:00",
       "956715.408354266387648"
+    ],
+    [
+      "2026-10-17T06:16:53.575810+00:00",
+      "NaN"
     ]
   ],
   "updated_at": "2026-10-16T12:42:23.021427+00:00",
@@ -4230,20 +4234,24 @@
     "KOTAKBANK.NS": 447.3999938964844,
     "LT.NS": 3627.10009765625,
     "NESTLEIND.NS": 1265.5,
-    "NIFTYBEES.NS": 263.8999938964844,
+    "NIFTYBEES.NS": NaN,
     "ONGC.NS": 222.0,
-    "SUNPHARMA.NS": 1758.800048828125,
+    "SUNPHARMA.NS": NaN,
     "TATASTEEL.NS": 175.5,
-    "ULTRACEMCO.NS": 10907.0
+    "ULTRACEMCO.NS": NaN
   },
   "benchmark_symbol": "^NSEI",
   "benchmark_history": [
     [
       "2026-10-16T15:19:53.011156+00:00",
       "23146.1504"
+    ],
+    [
+      "2026-10-17T06:16:53.575810+00:00",
+      "23146.1504"
     ]
   ],
-  "mark_to_market_equity": 956715.4083542664,
+  "mark_to_market_equity": NaN,
   "currency": "INR",
-  "snapshot_at": "2026-10-16T15:19:53.011156+00:00"
+  "snapshot_at": "2026-10-17T06:16:53.575810+00:00"
 }
